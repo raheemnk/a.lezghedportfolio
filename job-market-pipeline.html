@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Job Market Pipeline — Abdelrahim Lezghed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/pgsql.min.js"></script>
+<style>
+:root{--bg:#070b10;--card:#0e171f;--text:#edf5f7;--muted:#9aaab6;--line:#1d2b36;--green:#35e0a1;--blue:#55a7ff;--max:920px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 80% 0%,#123326 0,transparent 30%),var(--bg);color:var(--text);font-family:Inter,sans-serif;line-height:1.6}
+a{text-decoration:none;color:inherit}.wrap{max-width:var(--max);margin:auto;padding:0 28px}.mono{font-family:"JetBrains Mono",monospace}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(7,11,16,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:64px}
+.brand{font:600 13px "JetBrains Mono",monospace;color:var(--muted)}.brand strong{color:var(--text)}
+.back{font-size:13px;color:var(--muted);border:1px solid var(--line);padding:7px 13px;border-radius:8px}.back:hover{border-color:var(--green);color:var(--green)}
+.lang{display:flex;gap:5px}.lang button{cursor:pointer;border:1px solid var(--line);background:#0d151c;color:#aebbc4;border-radius:8px;padding:6px 10px;font-weight:800;font-size:13px}.lang button.active{background:var(--green);color:#06110d;border-color:var(--green)}
+.hero{padding:64px 0 48px;border-bottom:1px solid var(--line)}
+.hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:start}
+@media(max-width:800px){.hero-grid{grid-template-columns:1fr}}
+.kicker{font:600 12px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+h1{font-size:clamp(28px,4vw,42px);line-height:1.15;margin:0 0 18px;letter-spacing:-.03em;font-weight:800}
+.lede{color:var(--muted);font-size:17px;max-width:56ch;margin:0 0 26px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}.tag{font:12px "JetBrains Mono",monospace;color:#b7c5cc;border:1px solid #263743;padding:5px 10px;border-radius:999px}
+.titleblock{border:1px solid var(--line);background:var(--card);border-radius:14px;font:12.5px "JetBrains Mono",monospace;overflow:hidden}
+.titleblock .row{display:flex;justify-content:space-between;padding:11px 15px;border-bottom:1px solid var(--line);gap:12px}
+.titleblock .row:last-child{border-bottom:none}.titleblock .k{color:#6c7684}.titleblock .v{color:var(--text);text-align:right;max-width:60%}
+section{padding:56px 0;border-bottom:1px solid var(--line)}section:last-of-type{border-bottom:none}
+.section-head{display:grid;grid-template-columns:140px 1fr;gap:24px;margin-bottom:28px}
+@media(max-width:700px){.section-head{grid-template-columns:1fr}}
+.index-lbl{font:12px "JetBrains Mono",monospace;color:var(--muted);padding-top:6px}
+h2{font-size:24px;margin:0;font-weight:700;letter-spacing:-.02em}
+.section-body{max-width:66ch}.section-body p{color:var(--muted)}
+.problem{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--green);border-radius:0 12px 12px 0;padding:22px 24px;margin-top:6px}
+.problem p{margin:0;color:var(--muted)}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin-top:6px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.features.single{grid-template-columns:1fr}
+@media(max-width:700px){.features{grid-template-columns:1fr}}
+.feature{background:var(--card);padding:20px 22px}.feature h3{font-size:15px;margin:0 0 8px;font-weight:700}
+.feature p{font-size:14px;color:var(--muted);margin:0}.feature .role{font:11px "JetBrains Mono",monospace;color:var(--green);display:block;margin-bottom:8px;letter-spacing:.04em}
+.stack-table{width:100%;border-collapse:collapse;margin-top:6px;font-size:14px}
+.stack-table td{padding:12px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+.stack-table td:first-child{font-family:"JetBrains Mono",monospace;color:var(--green);width:170px;white-space:nowrap}
+.stack-table td:last-child{color:var(--muted)}
+.arch{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;margin-top:24px}
+.arch-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font:12.5px "JetBrains Mono",monospace;color:var(--muted)}
+.arch-box{border:1px solid var(--line);background:#0d151c;border-radius:8px;padding:9px 13px;color:var(--text)}
+.arch-arrow{color:var(--green)}
+.diagrams{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.diagram-chip{border:1px solid var(--line);padding:10px 14px;font-size:13px;color:var(--muted);border-radius:8px;background:var(--card);max-width:230px}
+.diagram-chip b{color:var(--text);font-weight:600;display:block;margin-bottom:2px}
+.code-block{background:#050809;border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-top:18px;overflow-x:auto}
+.code-block .file-label{font:11px "JetBrains Mono",monospace;color:var(--muted);margin-bottom:10px}
+.code-block pre{margin:0}.code-block code.hljs{background:transparent!important;padding:0!important;font:12.5px/1.7 "JetBrains Mono",monospace!important}
+.limits{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.limits li{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px;color:var(--muted);font-size:14.5px}
+.limits li b{color:var(--text)}
+.tabsdemo{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
+@media(max-width:700px){.tabsdemo{grid-template-columns:1fr}}
+.tabcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.tabcard .tabname{font:11px "JetBrains Mono",monospace;color:var(--green);letter-spacing:.04em;margin-bottom:8px}
+.tabcard ul{margin:8px 0 0;padding-left:18px;color:var(--muted);font-size:14px}
+.tabcard ul li{margin:4px 0}
+.cta{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:44px 0 60px;flex-wrap:wrap}
+.cta h2{font-size:20px}.btn.ghost{font:600 13px "JetBrains Mono",monospace;background:transparent;color:var(--muted);border:1px solid var(--line);padding:12px 20px;border-radius:9px;display:inline-block}
+footer{padding:24px 0 50px;font-size:12px;color:#71808b;font-family:"JetBrains Mono",monospace}
+[data-de]{display:none}
+</style></head><body>
+<div class="topbar"><div class="wrap">
+<div class="brand">PORTFOLIO / <strong><span data-en>Projects</span><span data-de>Projekte</span></strong></div>
+<div style="display:flex;gap:12px;align-items:center">
+<a class="back" href="index.html">← <span data-en>Back</span><span data-de>Zurück</span></a>
+<div class="lang"><button id="enBtn" onclick="setLang('en')">EN</button><button id="deBtn" onclick="setLang('de')">DE</button></div>
+</div></div></div>
+
+<div class="hero"><div class="wrap hero-grid">
+<div>
+<div class="kicker"><span data-en>PERSONAL PROJECT — DATA ENGINEERING / ANALYTICS</span><span data-de>PERSÖNLICHES PROJEKT — DATA ENGINEERING / ANALYTICS</span></div>
+<h1><span data-en>Job Market Pipeline — from API to dashboard</span><span data-de>Job Market Pipeline — von der API zum Dashboard</span></h1>
+<p class="lede" data-en>An end-to-end pipeline built to demonstrate Data Engineer, DBA and Data Analyst skills in a single project: ingestion from two public job-board APIs, PostgreSQL staging/core modeling, deduplication and historization via triggers, SQL analytics and an interactive dashboard.</p>
+<p class="lede" data-de>Eine durchgängige Pipeline, die Data-Engineer-, DBA- und Data-Analyst-Kompetenzen in einem einzigen Projekt vereint: Ingestion aus zwei öffentlichen Jobbörsen-APIs, PostgreSQL-Modellierung (Staging/Core), Deduplizierung und Historisierung per Trigger, SQL-Analysen und ein interaktives Dashboard.</p>
+<div class="tags"><span class="tag">Python</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span><span class="tag">Streamlit</span><span class="tag">SQL</span><span class="tag">pytest</span><span class="tag">GitHub Actions CI</span></div>
+</div>
+<div class="titleblock">
+<div class="row"><span class="k"><span data-en>Type</span><span data-de>Typ</span></span><span class="v"><span data-en>Personal project</span><span data-de>Persönliches Projekt</span></span></div>
+<div class="row"><span class="k"><span data-en>Year</span><span data-de>Jahr</span></span><span class="v">2026</span></div>
+<div class="row"><span class="k"><span data-en>Scale</span><span data-de>Umfang</span></span><span class="v"><span data-en>~1,260 lines Python + 380 lines SQL, 11 files</span><span data-de>~1.260 Zeilen Python + 380 Zeilen SQL, 11 Dateien</span></span></div>
+<div class="row"><span class="k"><span data-en>Sources</span><span data-de>Quellen</span></span><span class="v">Remotive & Arbeitnow APIs</span></div>
+<div class="row"><span class="k"><span data-en>Status</span><span data-de>Status</span></span><span class="v"><span data-en>Functional end-to-end, tested, CI on every push</span><span data-de>Durchgängig funktionsfähig, getestet, CI bei jedem Push</span></span></div>
+</div>
+</div></div>
+
+<section id="problem"><div class="wrap">
+<div class="section-head"><div class="index-lbl">01 — <span data-en>Problem</span><span data-de>Problem</span></div><h2><span data-en>Job boards duplicate silently</span><span data-de>Jobbörsen duplizieren still und leise</span></h2></div>
+<div class="section-body">
+<p data-en>Job aggregators routinely list the same posting more than once — the same role, reworded slightly, published on several platforms — with no cross-source deduplication and no visibility into how long a posting actually stays open. Anyone trying to measure real hiring activity (which roles are actually growing, how long they take to fill) has to do that reconciliation themselves.</p>
+<p data-de>Job-Aggregatoren listen dieselbe Stelle regelmäßig mehrfach auf — dieselbe Rolle, leicht anders formuliert, auf mehreren Plattformen veröffentlicht — ohne quellenübergreifende Deduplizierung und ohne Einblick, wie lange eine Stelle tatsächlich offen bleibt. Wer die reale Einstellungsaktivität messen will (welche Rollen wirklich wachsen, wie lange die Besetzung dauert), muss diesen Abgleich selbst vornehmen.</p>
+<div class="problem">
+<p data-en><b>Goal:</b> a pipeline that ingests raw postings without judgment, then deliberately and traceably reconciles duplicates, tracks each posting's lifecycle over time, and surfaces the resulting KPIs — rather than presenting a single daily snapshot as if it were the whole picture.</p>
+<p data-de><b>Ziel:</b> eine Pipeline, die Rohdaten ohne Vorabbewertung aufnimmt, Duplikate anschließend gezielt und nachvollziehbar zusammenführt, den Lebenszyklus jeder Stelle über die Zeit verfolgt und die daraus resultierenden KPIs sichtbar macht — statt eine einzelne Tagesmomentaufnahme als Gesamtbild auszugeben.</p>
+</div></div></div></section>
+
+<section id="architecture"><div class="wrap">
+<div class="section-head"><div class="index-lbl">02 — <span data-en>Architecture</span><span data-de>Architektur</span></div><h2><span data-en>Landing zone → staging → core</span><span data-de>Landing Zone → Staging → Core</span></h2></div>
+<div class="section-body"><p data-en>A classic data-engineering separation: raw data lands untouched, gets loaded into a staging table where duplicates are expected, then a dedicated step reconciles and historizes it into a clean core schema that analytics and the dashboard both read from.</p>
+<p data-de>Eine klassische Data-Engineering-Trennung: Rohdaten landen unverändert, werden in eine Staging-Tabelle geladen, in der Duplikate erwartet werden, und ein eigener Schritt führt sie anschließend zusammen und historisiert sie in ein sauberes Core-Schema, aus dem sowohl Analytics als auch das Dashboard lesen.</p></div>
+<div class="diagrams">
+<div class="diagram-chip"><b><span data-en>Landing zone</span><span data-de>Landing Zone</span></b><span data-en>raw JSON/JSONL, no cleaning, duplicates expected</span><span data-de>rohes JSON/JSONL, keine Bereinigung, Duplikate erwartet</span></div>
+<div class="diagram-chip"><b><span data-en>Staging → Core</span><span data-de>Staging → Core</span></b><span data-en>dedup + historization step</span><span data-de>Dedup- und Historisierungsschritt</span></div>
+<div class="diagram-chip"><b><span data-en>Triggers</span><span data-de>Trigger</span></b><span data-en>PL/pgSQL, automatic historization</span><span data-de>PL/pgSQL, automatische Historisierung</span></div>
+<div class="diagram-chip"><b><span data-en>Analytics + Dashboard</span><span data-de>Analytics + Dashboard</span></b><span data-en>SQL window functions, Streamlit/Plotly</span><span data-de>SQL-Fensterfunktionen, Streamlit/Plotly</span></div>
+</div>
+<div class="arch">
+<div class="arch-row">
+<span class="arch-box">Remotive + Arbeitnow API</span>
+<span class="arch-arrow">→</span>
+<span class="arch-box">scrape_jobs.py <span data-en>(landing zone)</span><span data-de>(Landing Zone)</span></span>
+<span class="arch-arrow">→</span>
+<span class="arch-box">staging.offres_brutes</span>
+<span class="arch-arrow">→</span>
+<span class="arch-box">dedupe_and_historize.py</span>
+<span class="arch-arrow">→</span>
+<span class="arch-box">core.offres <span data-en>(+ entreprises, compétences, historique)</span><span data-de>(+ entreprises, compétences, historique)</span></span>
+<span class="arch-arrow">→</span>
+<span class="arch-box"><span data-en>SQL analyses + Streamlit dashboard</span><span data-de>SQL-Analysen + Streamlit-Dashboard</span></span>
+</div>
+</div>
+</div></section>
+
+<section id="decisions"><div class="wrap">
+<div class="section-head"><div class="index-lbl">03 — <span data-en>Key decisions</span><span data-de>Zentrale Entscheidungen</span></div><h2><span data-en>Technical choices, and why</span><span data-de>Technische Entscheidungen — und warum</span></h2></div>
+<div class="features single">
+<div class="feature"><span class="role"><span data-en>01 — LANDING ZONE</span><span data-de>01 — LANDING ZONE</span></span><h3><span data-en>Raw ingestion, no upfront cleaning</span><span data-de>Rohe Ingestion, keine Bereinigung im Voraus</span></h3><p data-en>Data lands in <code>staging.offres_brutes</code> exactly as the APIs returned it, duplicates included on purpose ("Data Engineer H/F" from Remotive and "Data Engineer (M/F)" from Arbeitnow both land as-is). Reconciliation happens later, deliberately, as its own auditable step — not silently during ingestion.</p><p data-de>Daten landen in <code>staging.offres_brutes</code> genau so, wie die APIs sie geliefert haben, Duplikate absichtlich inklusive ("Data Engineer H/F" von Remotive und "Data Engineer (M/F)" von Arbeitnow landen unverändert). Der Abgleich erfolgt später, bewusst, als eigener nachvollziehbarer Schritt — nicht stillschweigend während der Ingestion.</p></div>
+<div class="feature"><span class="role"><span data-en>02 — DEDUPLICATION KEY</span><span data-de>02 — DEDUPLIZIERUNGSSCHLÜSSEL</span></span><h3><span data-en>Normalized slug, exact match</span><span data-de>Normalisierter Slug, exakter Abgleich</span></h3><p data-en>A unique key <code>slug(title) | slug(company) | slug(city)</code>, with gender markers (H/F, M/F...) and legal-form suffixes stripped. Deliberate limitation, stated in the README rather than hidden: this is exact-key matching, not fuzzy matching (Levenshtein, embeddings) — "Data Engineer" and "Ingénieur Data" would still be counted as two postings.</p><p data-de>Ein eindeutiger Schlüssel <code>slug(titel) | slug(firma) | slug(stadt)</code>, wobei Geschlechtsmarker (H/F, M/F...) und Rechtsformzusätze entfernt werden. Bewusste, im README genannte statt versteckte Einschränkung: Es handelt sich um exakten Schlüsselabgleich, nicht um Fuzzy-Matching (Levenshtein, Embeddings) — "Data Engineer" und "Ingénieur Data" würden weiterhin als zwei Stellen gezählt.</p></div>
+<div class="feature"><span class="role"><span data-en>03 — COMPANY RECONCILIATION</span><span data-de>03 — FIRMEN-ABGLEICH</span></span><h3><span data-en>City-suffix heuristic</span><span data-de>Stadt-Suffix-Heuristik</span></h3><p data-en>Some aggregators suffix the company name with the city ("TechCorp Paris"). When that suffix exactly matches the posting's city field, it's stripped — reconciling "TechCorp" (source A) with "TechCorp Paris" (source B) as one company.</p><p data-de>Manche Aggregatoren hängen die Stadt an den Firmennamen an ("TechCorp Paris"). Stimmt dieser Zusatz exakt mit dem Stadtfeld der Stelle überein, wird er entfernt — so werden "TechCorp" (Quelle A) und "TechCorp Paris" (Quelle B) als eine Firma zusammengeführt.</p></div>
+<div class="feature"><span class="role"><span data-en>04 — HISTORIZATION VIA TRIGGERS</span><span data-de>04 — HISTORISIERUNG PER TRIGGER</span></span><h3><span data-en>PL/pgSQL, not application logic</span><span data-de>PL/pgSQL statt Anwendungslogik</span></h3><p data-en>Status transitions are logged automatically by two PostgreSQL triggers — never a <code>DELETE</code>. A posting not seen in the last 3 collection runs flips from <code>Active</code> to <code>Expirée</code>, and the transition is journaled by the database itself, so the Python layer can't forget to log it.</p><p data-de>Statusübergänge werden automatisch von zwei PostgreSQL-Triggern protokolliert — nie ein <code>DELETE</code>. Eine Stelle, die in den letzten 3 Collection-Läufen nicht gesehen wurde, wechselt von <code>Active</code> zu <code>Expirée</code>, und der Übergang wird von der Datenbank selbst journaled — die Python-Schicht kann es nicht vergessen.</p></div>
+<div class="feature"><span class="role"><span data-en>05 — TESTING</span><span data-de>05 — TESTING</span></span><h3><span data-en>Unit + replayed-integration + CI</span><span data-de>Unit + nachgespielte Integration + CI</span></h3><p data-en>Pure unit tests need no database. An integration test replays 5 simulated collection days and verifies: two sources merge into one posting, "Société Générale" and "SOCIETE GENERALE SA" merge into one company, and expiration triggers automatically after 3 missed collections. GitHub Actions runs the full suite against a real Postgres container on every push.</p><p data-de>Reine Unit-Tests benötigen keine Datenbank. Ein Integrationstest spielt 5 simulierte Collection-Tage nach und prüft: zwei Quellen führen zu einer Stelle zusammen, "Société Générale" und "SOCIETE GENERALE SA" führen zu einer Firma zusammen, und der Status wechselt automatisch nach 3 verpassten Collections. GitHub Actions führt die komplette Suite bei jedem Push gegen einen echten Postgres-Container aus.</p></div>
+</div></div></section>
+
+<section id="code"><div class="wrap">
+<div class="section-head"><div class="index-lbl">04 — <span data-en>Code</span><span data-de>Code</span></div><h2><span data-en>Historization, at the database level</span><span data-de>Historisierung auf Datenbankebene</span></h2></div>
+<div class="section-body"><p data-en>Excerpt from the trigger that journals every status change into <code>core.offres_historique</code> — <code>AFTER INSERT OR UPDATE</code> because the history table has a foreign key back to <code>core.offres</code>, so the parent row must exist first.</p>
+<p data-de>Ausschnitt aus dem Trigger, der jede Statusänderung in <code>core.offres_historique</code> journalt — <code>AFTER INSERT OR UPDATE</code>, weil die History-Tabelle einen Fremdschlüssel auf <code>core.offres</code> hat und die übergeordnete Zeile daher zuerst existieren muss.</p></div>
+<div class="code-block"><div class="file-label">db/init/003_triggers_historisation.sql</div><pre><code class="language-pgsql">CREATE OR REPLACE FUNCTION core.fn_historiser_changement_statut()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF TG_OP = 'INSERT' THEN
+        INSERT INTO core.offres_historique (id_offre, ancien_statut, nouveau_statut, commentaire)
+        VALUES (NEW.id_offre, NULL, NEW.statut, 'Création de l''offre');
+        RETURN NEW;
+    END IF;
+
+    IF TG_OP = 'UPDATE' AND NEW.statut IS DISTINCT FROM OLD.statut THEN
+        INSERT INTO core.offres_historique (id_offre, ancien_statut, nouveau_statut, commentaire)
+        VALUES (
+            NEW.id_offre,
+            OLD.statut,
+            NEW.statut,
+            CASE
+                WHEN NEW.statut = 'Expirée' THEN 'Offre non revue lors des 3 dernières collectes'
+                WHEN NEW.statut = 'Active' THEN 'Offre republiée / revue à nouveau'
+                ELSE NULL
+            END
+        );
+    END IF;
+
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_historiser_statut
+    AFTER INSERT OR UPDATE ON core.offres
+    FOR EACH ROW
+    EXECUTE FUNCTION core.fn_historiser_changement_statut();</code></pre></div>
+</div></section>
+
+<section id="dashboard"><div class="wrap">
+<div class="section-head"><div class="index-lbl">05 — <span data-en>Dashboard</span><span data-de>Dashboard</span></div><h2><span data-en>Two views, two audiences</span><span data-de>Zwei Ansichten, zwei Zielgruppen</span></h2></div>
+<div class="section-body"><p data-en>A Streamlit + Plotly app reading directly from the core schema.</p><p data-de>Eine Streamlit- + Plotly-App, die direkt aus dem Core-Schema liest.</p></div>
+<div class="tabsdemo">
+<div class="tabcard"><div class="tabname">🔎 <span data-en>CANDIDATE TAB</span><span data-de>REGISTERKARTE KANDIDAT</span></div>
+<ul><li data-en>Search active, deduplicated postings by title, city or skill</li><li data-de>Suche in aktiven, deduplizierten Stellen nach Titel, Stadt oder Skill</li>
+<li data-en>Links back to every original source listing</li><li data-de>Links zurück zu allen ursprünglichen Quell-Inseraten</li></ul></div>
+<div class="tabcard"><div class="tabname">📊 <span data-en>STATISTICS TAB</span><span data-de>REGISTERKARTE STATISTIK</span></div>
+<ul><li data-en>Global KPIs: active/expired postings, distinct companies, average lifetime</li><li data-de>Globale KPIs: aktive/abgelaufene Stellen, eindeutige Firmen, durchschnittliche Lebensdauer</li>
+<li data-en>Duplicate rate per platform, top requested skills, volume over time</li><li data-de>Dublettenrate je Plattform, gefragteste Skills, Volumen im Zeitverlauf</li></ul></div>
+</div></div></section>
+
+<section id="limits"><div class="wrap">
+<div class="section-head"><div class="index-lbl">06 — <span data-en>Technical Validation & Limitations</span><span data-de>Technische Validierung & Einschränkungen</span></div><h2><span data-en>What has been validated</span><span data-de>Was validiert wurde</span></h2></div>
+<ul class="limits">
+<li><span data-en><b>Validated end-to-end:</b> unit tests, an integration test replaying 5 simulated collection days against a real PostgreSQL container, and GitHub Actions running the full suite on every push.</span><span data-de><b>Durchgängig validiert:</b> Unit-Tests, ein Integrationstest mit 5 nachgespielten Collection-Tagen gegen einen echten PostgreSQL-Container, und GitHub Actions führt die komplette Suite bei jedem Push aus.</span></li>
+<li><span data-en><b>Deduplication:</b> exact-key matching only — genuinely differently-worded postings for the same role aren't merged. Fuzzy matching (Levenshtein, embeddings) is a planned next step.</span><span data-de><b>Deduplizierung:</b> nur exakter Schlüsselabgleich — tatsächlich unterschiedlich formulierte Stellen für dieselbe Rolle werden nicht zusammengeführt. Fuzzy-Matching (Levenshtein, Embeddings) ist als nächster Schritt geplant.</span></li>
+<li><span data-en><b>Historization:</b> a single run is only a snapshot — the expiration logic only becomes meaningful after several days of repeated collection.</span><span data-de><b>Historisierung:</b> ein einzelner Lauf ist nur eine Momentaufnahme — die Ablauflogik entfaltet ihren Sinn erst nach mehreren Tagen wiederholter Collection.</span></li>
+<li><span data-en><b>Deployment:</b> local Docker Compose only, not yet deployed to a cloud environment or scheduled automatically outside CI.</span><span data-de><b>Deployment:</b> bislang nur lokales Docker Compose, noch nicht in einer Cloud-Umgebung bereitgestellt oder außerhalb der CI automatisch geplant.</span></li>
+</ul>
+</div></section>
+
+<section id="stack"><div class="wrap">
+<div class="section-head"><div class="index-lbl">07 — <span data-en>Stack</span><span data-de>Stack</span></div><h2><span data-en>Tools used</span><span data-de>Verwendete Werkzeuge</span></h2></div>
+<table class="stack-table">
+<tr><td><span data-en>Language</span><span data-de>Sprache</span></td><td>Python</td></tr>
+<tr><td><span data-en>Database</span><span data-de>Datenbank</span></td><td>PostgreSQL 16 <span data-en>(staging/core schemas, triggers)</span><span data-de>(Staging-/Core-Schemas, Trigger)</span></td></tr>
+<tr><td><span data-en>Sources</span><span data-de>Quellen</span></td><td>Remotive API, Arbeitnow API</td></tr>
+<tr><td><span data-en>Dashboard</span><span data-de>Dashboard</span></td><td>Streamlit + Plotly</td></tr>
+<tr><td><span data-en>Environment</span><span data-de>Umgebung</span></td><td>Docker Compose</td></tr>
+<tr><td><span data-en>Tests</span><span data-de>Tests</span></td><td>pytest <span data-en>(unit + integration)</span><span data-de>(Unit + Integration)</span></td></tr>
+<tr><td>CI/CD</td><td><span data-en>GitHub Actions, real Postgres service container</span><span data-de>GitHub Actions, echter Postgres-Servicecontainer</span></td></tr>
+</table>
+</div></section>
+
+<div class="wrap"><div class="cta">
+<div><h2><span data-en>Questions about the design?</span><span data-de>Fragen zum Design?</span></h2>
+<p style="color:var(--muted);margin:6px 0 0" data-en>Happy to walk through the deduplication logic, the trigger-based historization or the test strategy.</p>
+<p style="color:var(--muted);margin:6px 0 0" data-de>Gerne erläutere ich die Deduplizierungslogik, die Trigger-basierte Historisierung oder die Teststrategie.</p></div>
+<div><a class="btn ghost" href="mailto:ar.lezghed@gmail.com"><span data-en>Get in touch</span><span data-de>Kontakt aufnehmen</span></a></div>
+</div></div>
+<footer><div class="wrap">© Abdelrahim Lezghed — <span data-en>personal project</span><span data-de>persönliches Projekt</span>, 2026</div></footer>
+<script>
+hljs.highlightAll();
+function setLang(lang){
+ document.documentElement.lang=lang;
+ document.querySelectorAll('[data-en]').forEach(x=>x.style.display=lang==='en'?'inline':'none');
+ document.querySelectorAll('[data-de]').forEach(x=>x.style.display=lang==='de'?'inline':'none');
+ document.getElementById('enBtn').classList.toggle('active',lang==='en');
+ document.getElementById('deBtn').classList.toggle('active',lang==='de');
+}
+setLang('en');
+</script></body></html>

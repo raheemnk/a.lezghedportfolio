@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Multi-Agent Fundamental Analysis System — Abdelrahim Lezghed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+<style>
+:root{--bg:#070b10;--card:#0e171f;--text:#edf5f7;--muted:#9aaab6;--line:#1d2b36;--green:#35e0a1;--blue:#55a7ff;--max:920px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 80% 0%,#123326 0,transparent 30%),var(--bg);color:var(--text);font-family:Inter,sans-serif;line-height:1.6}
+a{text-decoration:none;color:inherit}.wrap{max-width:var(--max);margin:auto;padding:0 28px}.mono{font-family:"JetBrains Mono",monospace}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(7,11,16,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:64px}
+.brand{font:600 13px "JetBrains Mono",monospace;color:var(--muted)}.brand strong{color:var(--text)}
+.back{font-size:13px;color:var(--muted);border:1px solid var(--line);padding:7px 13px;border-radius:8px}.back:hover{border-color:var(--green);color:var(--green)}
+.lang{display:flex;gap:5px}.lang button{cursor:pointer;border:1px solid var(--line);background:#0d151c;color:#aebbc4;border-radius:8px;padding:6px 10px;font-weight:800;font-size:13px}.lang button.active{background:var(--green);color:#06110d;border-color:var(--green)}
+.hero{padding:64px 0 48px;border-bottom:1px solid var(--line)}
+.hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:start}
+@media(max-width:800px){.hero-grid{grid-template-columns:1fr}}
+.kicker{font:600 12px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+h1{font-size:clamp(28px,4vw,42px);line-height:1.15;margin:0 0 18px;letter-spacing:-.03em;font-weight:800}
+.lede{color:var(--muted);font-size:17px;max-width:56ch;margin:0 0 26px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}.tag{font:12px "JetBrains Mono",monospace;color:#b7c5cc;border:1px solid #263743;padding:5px 10px;border-radius:999px}
+.titleblock{border:1px solid var(--line);background:var(--card);border-radius:14px;font:12.5px "JetBrains Mono",monospace;overflow:hidden}
+.titleblock .row{display:flex;justify-content:space-between;padding:11px 15px;border-bottom:1px solid var(--line);gap:12px}
+.titleblock .row:last-child{border-bottom:none}.titleblock .k{color:#6c7684}.titleblock .v{color:var(--text);text-align:right;max-width:60%}
+section{padding:56px 0;border-bottom:1px solid var(--line)}section:last-of-type{border-bottom:none}
+.section-head{display:grid;grid-template-columns:140px 1fr;gap:24px;margin-bottom:28px}
+@media(max-width:700px){.section-head{grid-template-columns:1fr}}
+.index-lbl{font:12px "JetBrains Mono",monospace;color:var(--muted);padding-top:6px}
+h2{font-size:24px;margin:0;font-weight:700;letter-spacing:-.02em}
+.section-body{max-width:66ch}.section-body p{color:var(--muted)}
+.problem{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--green);border-radius:0 12px 12px 0;padding:22px 24px;margin-top:6px}
+.problem p{margin:0;color:var(--muted)}
+.stat-inline{color:var(--green);font-family:"JetBrains Mono",monospace}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin-top:6px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.features.single{grid-template-columns:1fr}
+@media(max-width:700px){.features{grid-template-columns:1fr}}
+.feature{background:var(--card);padding:20px 22px}.feature h3{font-size:15px;margin:0 0 8px;font-weight:700}
+.feature p{font-size:14px;color:var(--muted);margin:0}.feature .role{font:11px "JetBrains Mono",monospace;color:var(--green);display:block;margin-bottom:8px;letter-spacing:.04em}
+.stack-table{width:100%;border-collapse:collapse;margin-top:6px;font-size:14px}
+.stack-table td{padding:12px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+.stack-table td:first-child{font-family:"JetBrains Mono",monospace;color:var(--green);width:170px;white-space:nowrap}
+.stack-table td:last-child{color:var(--muted)}
+.arch{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;margin-top:24px}
+.arch-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font:12.5px "JetBrains Mono",monospace;color:var(--muted)}
+.arch-box{border:1px solid var(--line);background:#0d151c;border-radius:8px;padding:9px 13px;color:var(--text)}
+.arch-arrow{color:var(--green)}
+.realgraph{margin-top:24px}
+.realgraph-caption{font:11.5px "JetBrains Mono",monospace;color:var(--muted);margin-top:10px}
+.diagrams{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.diagram-chip{border:1px solid var(--line);padding:10px 14px;font-size:13px;color:var(--muted);border-radius:8px;background:var(--card)}
+.diagram-chip b{color:var(--text);font-weight:600;display:block;margin-bottom:2px}
+.code-block{background:#050809;border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-top:18px;overflow-x:auto}
+.code-block .file-label{font:11px "JetBrains Mono",monospace;color:var(--muted);margin-bottom:10px}
+.code-block pre{margin:0}.code-block code.hljs{background:transparent!important;padding:0!important;font:12.5px/1.7 "JetBrains Mono",monospace!important}
+.limits{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.limits li{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px;color:var(--muted);font-size:14.5px}
+.limits li b{color:var(--text)}
+.cta{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:44px 0 60px;flex-wrap:wrap}
+.cta h2{font-size:20px}.btn.ghost{font:600 13px "JetBrains Mono",monospace;background:transparent;color:var(--muted);border:1px solid var(--line);padding:12px 20px;border-radius:9px;display:inline-block}
+footer{padding:24px 0 50px;font-size:12px;color:#71808b;font-family:"JetBrains Mono",monospace}
+[data-de]{display:none}
+</style></head><body>
+<div class="topbar"><div class="wrap">
+<div class="brand">PORTFOLIO / <strong><span data-en>Projects</span><span data-de>Projekte</span></strong></div>
+<div style="display:flex;gap:12px;align-items:center">
+<a class="back" href="index.html">← <span data-en>Back</span><span data-de>Zurück</span></a>
+<div class="lang"><button id="enBtn" onclick="setLang('en')">EN</button><button id="deBtn" onclick="setLang('de')">DE</button></div>
+</div></div></div>
+
+<div class="hero"><div class="wrap hero-grid">
+<div>
+<div class="kicker"><span data-en>PERSONAL PROJECT — AI / QUANT ENGINEERING</span><span data-de>PERSÖNLICHES PROJEKT — KI / QUANT ENGINEERING</span></div>
+<h1><span data-en>Multi-Agent Fundamental Analysis System</span><span data-de>Multi-Agent-System für Fundamentalanalyse</span></h1>
+<p class="lede" data-en>A hybrid AI research pipeline — deterministic quantitative computation plus multi-agent LLM debate — producing traceable, sourced fundamental analysis on 26 financial instruments (Forex, Gold, Indices, Crypto) every week.</p>
+<p class="lede" data-de>Eine hybride KI-Research-Pipeline — deterministische quantitative Berechnung kombiniert mit einem Multi-Agenten-LLM-Debattensystem — die wöchentlich nachvollziehbare, belegte Fundamentalanalysen zu 26 Finanzinstrumenten (Forex, Gold, Indizes, Krypto) erstellt.</p>
+<div class="tags"><span class="tag">Python</span><span class="tag">LangGraph</span><span class="tag">Claude API</span><span class="tag">Multi-Agent Systems</span><span class="tag">Quantitative Finance</span><span class="tag">Backtesting</span><span class="tag">CI/CD</span></div>
+</div>
+<div class="titleblock">
+<div class="row"><span class="k"><span data-en>Type</span><span data-de>Typ</span></span><span class="v"><span data-en>Personal project</span><span data-de>Persönliches Projekt</span></span></div>
+<div class="row"><span class="k"><span data-en>Year</span><span data-de>Jahr</span></span><span class="v">2026</span></div>
+<div class="row"><span class="k"><span data-en>Scale</span><span data-de>Umfang</span></span><span class="v"><span data-en>~3,186 lines Python · 42 files · 12 agents</span><span data-de>~3.186 Zeilen Python · 42 Dateien · 12 Agenten</span></span></div>
+<div class="row"><span class="k"><span data-en>Instruments</span><span data-de>Instrumente</span></span><span class="v">26 <span data-en>(Forex, Gold, Indices, Crypto)</span><span data-de>(Forex, Gold, Indizes, Krypto)</span></span></div>
+<div class="row"><span class="k"><span data-en>Status</span><span data-de>Status</span></span><span class="v"><span data-en>Functional end-to-end, tested, not yet validated on real capital</span><span data-de>Durchgängig funktionsfähig, getestet, noch nicht mit echtem Kapital validiert</span></span></div>
+</div>
+</div></div>
+
+<section id="problem"><div class="wrap">
+<div class="section-head"><div class="index-lbl">01 — <span data-en>Problem</span><span data-de>Problem</span></div><h2><span data-en>LLMs are unreliable calculators</span><span data-de>LLMs sind unzuverlässige Rechner</span></h2></div>
+<div class="section-body">
+<p data-en>LLM-assisted trading systems share a structural flaw documented in recent literature (2025-2026): they treat the language model's output as a reliable, interpretable judgment — even though LLMs fail dramatically at precise numerical computation (a 2025 benchmark shows accuracy collapsing from <span class="stat-inline">95.6%</span> to near <span class="stat-inline">0%</span> between simple extraction and multivariate calculation) and suffer from correlated bias when the same model plays several contradictory roles in a debate.</p>
+<p data-de>KI-gestützte Trading-Systeme teilen einen strukturellen Fehler, der in der aktuellen Literatur (2025-2026) dokumentiert ist: Sie behandeln die Ausgabe des Sprachmodells als zuverlässiges, interpretierbares Urteil — obwohl LLMs bei präziser numerischer Berechnung dramatisch versagen (eine Benchmark aus 2025 zeigt einen Genauigkeitseinbruch von <span class="stat-inline">95,6 %</span> auf nahezu <span class="stat-inline">0 %</span> zwischen einfacher Extraktion und multivariater Berechnung) und unter korreliertem Bias leiden, wenn dasselbe Modell mehrere widersprüchliche Rollen in einer Debatte übernimmt.</p>
+<div class="problem">
+<p data-en><b>Project goal:</b> build a system that uses LLMs for what they do well — synthesis, adversarial argumentation, reading macro context — while structurally eliminating their use for anything that must be exact. One rule, applied throughout the codebase: <b>the LLM interprets, the code computes.</b></p>
+<p data-de><b>Projektziel:</b> ein System bauen, das LLMs für das einsetzt, was sie gut können — Synthese, kontroverse Argumentation, das Lesen von Makro-Kontext — und ihren Einsatz für alles, was exakt sein muss, strukturell ausschließt. Eine Regel, konsequent im gesamten Code angewendet: <b>das LLM interpretiert, der Code rechnet.</b></p>
+</div></div></div></section>
+
+<section id="architecture"><div class="wrap">
+<div class="section-head"><div class="index-lbl">02 — <span data-en>Architecture</span><span data-de>Architektur</span></div><h2><span data-en>12 agents, 4 layers</span><span data-de>12 Agenten, 4 Schichten</span></h2></div>
+<div class="section-body"><p data-en>Built as a LangGraph state graph: collection agents gather market and macro data, a barrier node fans out dynamically into 26 parallel per-instrument debates, an independent auditor blind-checks each verdict, and a synthesis stage turns the results into an execution plan and report.</p>
+<p data-de>Aufgebaut als LangGraph-State-Graph: Collection-Agenten sammeln Markt- und Makrodaten, ein Barrier-Knoten verteilt dynamisch auf 26 parallele Debatten pro Instrument, ein unabhängiger Auditor prüft jedes Urteil blind, und eine Synthese-Stufe verwandelt die Ergebnisse in einen Ausführungsplan und einen Bericht.</p></div>
+<div class="diagrams">
+<div class="diagram-chip"><b><span data-en>Collection (6 agents)</span><span data-de>Collection (6 Agenten)</span></b><span data-en>macro, news, forex/gold/indices/crypto, technical, positioning</span><span data-de>Makro, News, Forex/Gold/Indizes/Krypto, Technik, Positionierung</span></div>
+<div class="diagram-chip"><b><span data-en>Debate (fan-out ×26)</span><span data-de>Debate (Fan-out ×26)</span></b><span data-en>Bull / Bear / Judge per instrument</span><span data-de>Bull / Bear / Judge je Instrument</span></div>
+<div class="diagram-chip"><b><span data-en>Verification (1 agent)</span><span data-de>Verification (1 Agent)</span></b><span data-en>blind, independent-provider audit</span><span data-de>blinder Audit mit unabhängigem Anbieter</span></div>
+<div class="diagram-chip"><b><span data-en>Synthesis (2 agents)</span><span data-de>Synthesis (2 Agenten)</span></b><span data-en>execution plan + supervisor / report</span><span data-de>Execution Plan + Supervisor / Bericht</span></div>
+</div>
+<div class="realgraph">
+<svg viewBox="0 0 1430 420" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="font-family:'JetBrains Mono',monospace;">
+<defs><marker id="arrow3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5C6690"/></marker></defs>
+
+<circle cx="25" cy="210" r="8" fill="#0e171f" stroke="#35e0a1" stroke-width="1.5"/>
+<line x1="33" y1="210" x2="52" y2="210" stroke="#5C6690" stroke-width="1.3" marker-end="url(#arrow3)"/>
+
+<rect x="55" y="190" width="95" height="40" rx="6" fill="#0e171f" stroke="#1d2b36"/><rect x="55" y="190" width="95" height="3.5" fill="#35e0a1"/>
+<text x="102" y="214" fill="#edf5f7" font-size="12" text-anchor="middle">macro</text>
+<line x1="150" y1="210" x2="177" y2="210" stroke="#5C6690" stroke-width="1.3" marker-end="url(#arrow3)"/>
+
+<rect x="180" y="190" width="150" height="40" rx="6" fill="#0e171f" stroke="#1d2b36"/><rect x="180" y="190" width="150" height="3.5" fill="#35e0a1"/>
+<text x="255" y="214" fill="#edf5f7" font-size="12" text-anchor="middle">news_sentiment</text>
+
+<!-- fan-out: news_sentiment -> 6 collectors -->
+<line x1="330" y1="210" x2="360" y2="85"  stroke="#5C6690" stroke-width="1" marker-end="url(#arrow3)"/>
+<line x1="330" y1="210" x2="360" y2="135" stroke="#5C6690" stroke-width="1" marker-end="url(#arrow3)"/>
+<line x1="330" y1="210" x2="360" y2="185" stroke="#5C6690" stroke-width="1" marker-end="url(#arrow3)"/>
+<line x1="330" y1="210" x2="360" y2="235" stroke="#5C6690" stroke-width="1" marker-end="url(#arrow3)"/>
+<line x1="330" y1="210" x2="360" y2="285" stroke="#5C6690" stroke-width="1" marker-end="url(#arrow3)"/>
+<line x1="330" y1="210" x2="360" y2="335" stroke="#5C6690" stroke-width="1" marker-end="url(#arrow3)"/>
+
+<rect x="360" y="67"  width="160" height="36" rx="6" fill="#0e171f" stroke="#1d2b36"/><text x="440" y="90"  fill="#c5d0d6" font-size="10.5" text-anchor="middle">collect_forex</text>
+<rect x="360" y="117" width="160" height="36" rx="6" fill="#0e171f" stroke="#1d2b36"/><text x="440" y="140" fill="#c5d0d6" font-size="10.5" text-anchor="middle">collect_gold</text>
+<rect x="360" y="167" width="160" height="36" rx="6" fill="#0e171f" stroke="#1d2b36"/><text x="440" y="190" fill="#c5d0d6" font-size="10.5" text-anchor="middle">collect_indices</text>
+<rect x="360" y="217" width="160" height="36" rx="6" fill="#0e171f" stroke="#1d2b36"/><text x="440" y="240" fill="#c5d0d6" font-size="10.5" text-anchor="middle">collect_crypto</text>
+<rect x="360" y="267" width="160" height="36" rx="6" fill="#0e171f" stroke="#1d2b36"/><text x="440" y="290" fill="#c5d0d6" font-size="10.5" text-anchor="middle">technical_analysis</text>
+<rect x="360" y="317" width="160" height="36" rx="6" fill="#0e171f" stroke="#1d2b36"/><text x="440" y="340" fill="#c5d0d6" font-size="10.5" text-anchor="middle">retail_positioning</text>
+
+<!-- fan-in: 6 collectors -> prepare_debates -->
+<line x1="520" y1="85"  x2="548" y2="205" stroke="#5C6690" stroke-width="1"/>
+<line x1="520" y1="135" x2="548" y2="207" stroke="#5C6690" stroke-width="1"/>
+<line x1="520" y1="185" x2="548" y2="209" stroke="#5C6690" stroke-width="1"/>
+<line x1="520" y1="235" x2="548" y2="211" stroke="#5C6690" stroke-width="1"/>
+<line x1="520" y1="285" x2="548" y2="213" stroke="#5C6690" stroke-width="1"/>
+<line x1="520" y1="335" x2="548" y2="215" stroke="#5C6690" stroke-width="1" marker-end="url(#arrow3)"/>
+
+<rect x="550" y="190" width="150" height="40" rx="6" fill="#0e171f" stroke="#35e0a1" stroke-width="1.3"/>
+<text x="625" y="214" fill="#35e0a1" font-size="12" text-anchor="middle" font-weight="600">prepare_debates</text>
+
+<line x1="700" y1="210" x2="737" y2="210" stroke="#5C6690" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#arrow3)"/>
+<text x="718" y="196" fill="#9aaab6" font-size="10" text-anchor="middle">Send ×26</text>
+
+<rect x="740" y="190" width="170" height="40" rx="6" fill="#0e171f" stroke="#1d2b36"/><rect x="740" y="190" width="170" height="3.5" fill="#35e0a1"/>
+<text x="825" y="214" fill="#edf5f7" font-size="12" text-anchor="middle">debate_instrument</text>
+<line x1="910" y1="210" x2="937" y2="210" stroke="#5C6690" stroke-width="1.3" marker-end="url(#arrow3)"/>
+
+<rect x="940" y="190" width="110" height="40" rx="6" fill="#0e171f" stroke="#1d2b36"/><rect x="940" y="190" width="110" height="3.5" fill="#35e0a1"/>
+<text x="995" y="214" fill="#edf5f7" font-size="12" text-anchor="middle">auditor</text>
+<line x1="1050" y1="210" x2="1077" y2="210" stroke="#5C6690" stroke-width="1.3" marker-end="url(#arrow3)"/>
+
+<rect x="1080" y="190" width="150" height="40" rx="6" fill="#0e171f" stroke="#1d2b36"/><rect x="1080" y="190" width="150" height="3.5" fill="#35e0a1"/>
+<text x="1155" y="214" fill="#edf5f7" font-size="12" text-anchor="middle">execution_plan</text>
+<line x1="1230" y1="210" x2="1257" y2="210" stroke="#5C6690" stroke-width="1.3" marker-end="url(#arrow3)"/>
+
+<rect x="1260" y="190" width="120" height="40" rx="6" fill="#0e171f" stroke="#1d2b36"/><rect x="1260" y="190" width="120" height="3.5" fill="#35e0a1"/>
+<text x="1320" y="214" fill="#edf5f7" font-size="12" text-anchor="middle">supervisor</text>
+<line x1="1380" y1="210" x2="1397" y2="210" stroke="#5C6690" stroke-width="1.3" marker-end="url(#arrow3)"/>
+<circle cx="1405" cy="210" r="8" fill="#0e171f" stroke="#bfb6fc" stroke-width="1.5"/>
+</svg>
+<div class="realgraph-caption"><span data-en>Actual graph exported from LangGraph (<code>get_graph().draw_mermaid()</code>) — not a simplified illustration.</span><span data-de>Tatsächlicher, aus LangGraph exportierter Graph (<code>get_graph().draw_mermaid()</code>) — keine vereinfachte Darstellung.</span></div>
+</div>
+</div></section>
+
+<section id="decisions"><div class="wrap">
+<div class="section-head"><div class="index-lbl">03 — <span data-en>Key decisions</span><span data-de>Zentrale Entscheidungen</span></div><h2><span data-en>Technical choices, and why</span><span data-de>Technische Entscheidungen — und warum</span></h2></div>
+<div class="features single">
+<div class="feature"><span class="role"><span data-en>01 — SEPARATION OF CONCERNS</span><span data-de>01 — TRENNUNG DER ZUSTÄNDIGKEITEN</span></span><h3><span data-en>Strict compute / interpretation split</span><span data-de>Strikte Trennung von Berechnung und Interpretation</span></h3><p data-en>Every number in the final report (RSI, ATR, composite score, calendar event count, fundamental bias) is computed in deterministic Python. The LLM never produces a final score directly — it supplies atomic, sourced judgments that the code then aggregates through a transparent, auditable formula.</p><p data-de>Jede Zahl im finalen Bericht (RSI, ATR, Kompositscore, Anzahl Kalenderereignisse, fundamentaler Bias) wird in deterministischem Python berechnet. Das LLM erzeugt nie direkt einen Endscore — es liefert atomare, belegte Einschätzungen, die der Code anschließend über eine transparente, nachvollziehbare Formel aggregiert.</p></div>
+<div class="feature"><span class="role"><span data-en>02 — DYNAMIC FAN-OUT</span><span data-de>02 — DYNAMISCHER FAN-OUT</span></span><h3><span data-en>Configuration-driven, not hardcoded</span><span data-de>Konfigurationsgesteuert statt hartcodiert</span></h3><p data-en>The per-instrument debate uses LangGraph's <code>Send</code> mechanism (map-reduce pattern) instead of 26 hardcoded nodes — changing the tracked instrument list needs no change to the graph itself.</p><p data-de>Die Debatte pro Instrument nutzt LangGraphs <code>Send</code>-Mechanismus (Map-Reduce-Muster) statt 26 fest codierter Knoten — eine Änderung der verfolgten Instrumentenliste erfordert keine Änderung am Graphen selbst.</p></div>
+<div class="feature"><span class="role"><span data-en>03 — INDEPENDENT AUDIT</span><span data-de>03 — UNABHÄNGIGER AUDIT</span></span><h3><span data-en>Multi-provider, blind verification</span><span data-de>Blinde Verifikation mit mehreren Anbietern</span></h3><p data-en>To mitigate the documented risk of a single LLM "debating with itself" (Bull/Bear/Judge from the same model), an auditor agent reconstructs each verdict blind — without seeing the debate's reasoning — using an independent LLM provider where possible (Kimi K3 / Moonshot AI, OpenAI as fallback), with graceful degradation and explicit transparency about the real independence achieved.</p><p data-de>Um das dokumentierte Risiko zu mindern, dass ein einzelnes LLM "mit sich selbst debattiert" (Bull/Bear/Judge vom selben Modell), rekonstruiert ein Auditor-Agent jedes Urteil blind — ohne die Argumentation der Debatte zu sehen — nach Möglichkeit mit einem unabhängigen LLM-Anbieter (Kimi K3 / Moonshot AI, OpenAI als Fallback), mit gracefuller Degradation und expliziter Transparenz über die tatsächlich erreichte Unabhängigkeit.</p></div>
+<div class="feature"><span class="role"><span data-en>04 — ANTI-LOOK-AHEAD BIAS</span><span data-de>04 — ANTI-LOOK-AHEAD-BIAS</span></span><h3><span data-en>Strict temporal masking</span><span data-de>Strikte zeitliche Maskierung</span></h3><p data-en>Any data (economic calendar, price history) later than the simulated decision moment is strictly masked before it reaches an agent — a necessary condition for any future retroactive backtesting to be valid, not just for live use.</p><p data-de>Jede Daten (Wirtschaftskalender, Kurshistorie), die nach dem simulierten Entscheidungszeitpunkt liegt, wird strikt maskiert, bevor sie einen Agenten erreicht — eine notwendige Bedingung dafür, dass zukünftiges retroaktives Backtesting valide ist, nicht nur für den Live-Einsatz.</p></div>
+<div class="feature"><span class="role"><span data-en>05 — BUILT-IN STATISTICAL VALIDATION</span><span data-de>05 — EINGEBAUTE STATISTISCHE VALIDIERUNG</span></span><h3><span data-en>Not just raw performance</span><span data-de>Nicht nur reine Performance</span></h3><p data-en><code>backtest/scorecard.py</code> computes a calibration table (does the displayed confidence score actually match the observed success rate?), a Brier score, comparisons against naive baselines (coin flip, trend following), and applies a walk-forward protocol to avoid overfitting when thresholds are tuned later.</p><p data-de><code>backtest/scorecard.py</code> berechnet eine Kalibrierungstabelle (entspricht der angezeigte Konfidenzwert tatsächlich der beobachteten Erfolgsquote?), einen Brier-Score, Vergleiche mit naiven Baselines (Münzwurf, Trendfolge) und wendet ein Walk-Forward-Protokoll an, um Overfitting bei künftiger Schwellenwert-Anpassung zu vermeiden.</p></div>
+</div></div></section>
+
+<section id="different"><div class="wrap">
+<div class="section-head"><div class="index-lbl">04 — <span data-en>What sets it apart</span><span data-de>Was es unterscheidet</span></div><h2><span data-en>Not just an LLM wrapper</span><span data-de>Kein bloßer LLM-Wrapper</span></h2></div>
+<div class="section-body">
+<p data-en>The most significant part of this project isn't report generation — it's the critical audit cycle around it. A professional review of the system (referenced in the code and README) identified precise flaws drawn from recent quant/LLM literature (look-ahead bias, correlated debate bias, uncalibrated confidence score), and each fix was implemented, tested numerically against concrete cases, and documented with its technical justification — rather than presented as definitively solved.</p>
+<p data-de>Der bedeutsamste Teil dieses Projekts ist nicht die Berichtserstellung — es ist der kritische Audit-Zyklus, der es begleitet hat. Eine professionelle Systemprüfung (im Code und README referenziert) identifizierte präzise Schwachstellen aus der aktuellen Quant-/LLM-Literatur (Look-Ahead-Bias, korrelierter Debatten-Bias, unkalibrierter Konfidenzwert), und jede Korrektur wurde implementiert, numerisch an konkreten Fällen getestet und mit ihrer technischen Begründung dokumentiert — statt als endgültig gelöst dargestellt zu werden.</p>
+<div class="problem">
+<p data-en><b>Concrete example:</b> the confidence score is only shown at a given level because it follows a verifiable formula (agreement between factors, magnitude, technical adjustment, audit cap) — tested against edge cases (contradictory factors → neutral confidence at 50, not a misleading average).</p>
+<p data-de><b>Konkretes Beispiel:</b> Der Konfidenzwert wird nur deshalb auf einem bestimmten Niveau angezeigt, weil er einer nachprüfbaren Formel folgt (Übereinstimmung zwischen Faktoren, Magnitude, technische Anpassung, Audit-Obergrenze) — getestet an Grenzfällen (widersprüchliche Faktoren → neutrale Konfidenz bei 50, statt eines irreführenden Mittelwerts).</p>
+</div></div></div></section>
+
+<section id="code"><div class="wrap">
+<div class="section-head"><div class="index-lbl">05 — <span data-en>Code</span><span data-de>Code</span></div><h2><span data-en>The confidence formula, in code</span><span data-de>Die Konfidenzformel im Code</span></h2></div>
+<div class="section-body"><p data-en>Excerpt from <code>debate.py</code> — the function that turns sourced LLM factors into an auditable bias and confidence score. Note the docstring explaining the reasoning, not just the mechanics.</p>
+<p data-de>Ausschnitt aus <code>debate.py</code> — die Funktion, die belegte LLM-Faktoren in einen nachprüfbaren Bias- und Konfidenzwert überführt. Der Docstring erklärt die Begründung, nicht nur die Mechanik.</p></div>
+<div class="code-block"><div class="file-label">src/agents/debate.py</div><pre><code class="language-python">def _compute_fundamental_score(factors: list[dict]) -> tuple[str, int, dict]:
+    """
+    Computes bias and confidence IN CODE from the sourced factors
+    supplied by the LLM — never the other way around. This is the direct
+    fix for the "opaque fundamental score" problem: every confidence
+    point is traceable to a sum of named, cited factors, not a
+    holistic black-box judgment.
+
+    Formula (deliberately simple and auditable):
+    - bias: average score > +0.3 -> bullish, < -0.3 -> bearish, else neutral
+    - confidence = 50 (neutral base) + up to +30 for average factor
+      magnitude + up to ±20 for agreement between factors (factors that
+      contradict each other must lower confidence, even if the average
+      leans one way)
+    """
+    scores = [max(-2, min(2, f["score"])) for f in factors
+              if isinstance(f.get("score"), (int, float))]
+
+    if not scores:
+        return "neutral", 0, {"total": 0, "avg": 0, "agreement_ratio": 0, "n_factors": 0}
+
+    total = sum(scores)
+    n = len(scores)
+    avg = total / n
+
+    if avg > 0.3:
+        bias = "bullish"
+    elif avg < -0.3:
+        bias = "bearish"
+    else:
+        bias = "neutral"
+
+    same_direction = sum(1 for s in scores if (s > 0) == (avg > 0) or s == 0)
+    agreement_ratio = same_direction / n
+
+    magnitude = min(abs(avg) / 2, 1.0)  # max score ±2 per factor -> normalized 0-1
+    confidence = 50 + magnitude * 30 + (agreement_ratio - 0.5) * 40
+    confidence = int(round(max(0, min(100, confidence))))
+
+    return bias, confidence, {
+        "total": round(total, 2), "avg": round(avg, 2),
+        "agreement_ratio": round(agreement_ratio, 2), "n_factors": n,
+    }</code></pre></div>
+</div></section>
+
+<section id="limits"><div class="wrap">
+<div class="section-head"><div class="index-lbl">06 — <span data-en>Technical Validation & Limitations</span><span data-de>Technische Validierung & Einschränkungen</span></div><h2><span data-en>What has been validated</span><span data-de>Was validiert wurde</span></h2></div>
+<div class="section-body"><p data-en>Tested end-to-end with the full pytest suite and DRY_RUN mode against real market data sources. Three things aren't proven yet:</p><p data-de>Durchgängig getestet mit der vollständigen pytest-Suite und dem DRY_RUN-Modus gegen echte Marktdatenquellen. Drei Dinge sind noch nicht belegt:</p></div>
+<ul class="limits">
+<li><span data-en><b>Real-world reliability:</b> the backtesting module exists but hasn't run on real market data over a meaningful period (bar set: 100+ resolved predictions, 3 months minimum, before any conclusion).</span><span data-de><b>Zuverlässigkeit unter realen Bedingungen:</b> das Backtesting-Modul existiert, lief aber noch nicht über einen aussagekräftigen Zeitraum auf realen Marktdaten (Maßstab: 100+ aufgelöste Vorhersagen, mindestens 3 Monate, vor jeder Schlussfolgerung).</span></li>
+<li><span data-en><b>Confidence calibration:</b> formula weights chosen by engineering judgment, not regression on historical data. The walk-forward protocol is ready for this, but hasn't run yet for lack of accumulated data.</span><span data-de><b>Konfidenz-Kalibrierung:</b> Gewichte der Formel nach Ingenieursurteil gewählt, nicht per Regression auf historischen Daten. Das Walk-Forward-Protokoll ist dafür bereit, lief aber mangels angesammelter Daten noch nicht.</span></li>
+<li><span data-en><b>Scope:</b> not an autonomous trading system — no order execution, no global portfolio management (qualitative correlations only, no covariance matrix). CFTC contract names for the retail positioning module are flagged as "to verify manually" rather than treated as reliable by default.</span><span data-de><b>Umfang:</b> kein autonomes Handelssystem — keine Orderausführung, kein globales Portfoliomanagement (nur qualitative Korrelationen, keine Kovarianzmatrix). CFTC-Vertragsnamen für das Retail-Positioning-Modul sind als "manuell zu prüfen" markiert statt standardmäßig als zuverlässig behandelt.</span></li>
+</ul>
+</div></section>
+
+<section id="stack"><div class="wrap">
+<div class="section-head"><div class="index-lbl">07 — <span data-en>Stack</span><span data-de>Stack</span></div><h2><span data-en>Tools used</span><span data-de>Verwendete Werkzeuge</span></h2></div>
+<table class="stack-table">
+<tr><td><span data-en>Orchestration</span><span data-de>Orchestrierung</span></td><td>LangGraph <span data-en>— persistent state, dynamic fan-out (Send), SQLite checkpointing</span><span data-de>— persistenter State, dynamischer Fan-out (Send), SQLite-Checkpointing</span></td></tr>
+<tr><td><span data-en>Primary LLM</span><span data-de>Primäres LLM</span></td><td>Claude (Anthropic API), <span data-en>Haiku/Sonnet routing</span><span data-de>Haiku/Sonnet-Routing</span></td></tr>
+<tr><td><span data-en>Independent audit</span><span data-de>Unabhängiger Audit</span></td><td>Kimi K3 (Moonshot AI) / OpenAI</td></tr>
+<tr><td><span data-en>Market data</span><span data-de>Marktdaten</span></td><td>Financial Modeling Prep, FRED, Binance, CFTC (COT)</td></tr>
+<tr><td><span data-en>Technical indicators</span><span data-de>Technische Indikatoren</span></td><td><span data-en>Pure Python implementation (no numpy/pandas)</span><span data-de>Reine Python-Implementierung (ohne numpy/pandas)</span></td></tr>
+<tr><td><span data-en>Tests</span><span data-de>Tests</span></td><td>pytest, <span data-en>full mocks, DRY_RUN mode</span><span data-de>vollständige Mocks, DRY_RUN-Modus</span></td></tr>
+<tr><td>CI/CD</td><td><span data-en>GitHub Actions (weekly cron + auto backtest resolution)</span><span data-de>GitHub Actions (wöchentlicher Cron + automatische Backtest-Auflösung)</span></td></tr>
+<tr><td><span data-en>Persistence</span><span data-de>Persistenz</span></td><td>SQLite</td></tr>
+</table>
+</div></section>
+
+<div class="wrap"><div class="cta">
+<div><h2><span data-en>Questions about the design?</span><span data-de>Fragen zum Design?</span></h2>
+<p style="color:var(--muted);margin:6px 0 0" data-en>Happy to walk through the confidence formula, the independent-audit design or the calibration methodology.</p>
+<p style="color:var(--muted);margin:6px 0 0" data-de>Gerne erläutere ich die Konfidenzformel, das Design des unabhängigen Audits oder die Kalibrierungsmethodik.</p></div>
+<div><a class="btn ghost" href="mailto:ar.lezghed@gmail.com"><span data-en>Get in touch</span><span data-de>Kontakt aufnehmen</span></a></div>
+</div></div>
+<footer><div class="wrap">© Abdelrahim Lezghed — <span data-en>personal project</span><span data-de>persönliches Projekt</span>, 2026</div></footer>
+<script>
+hljs.highlightAll();
+function setLang(lang){
+ document.documentElement.lang=lang;
+ document.querySelectorAll('[data-en]').forEach(x=>x.style.display=lang==='en'?'inline':'none');
+ document.querySelectorAll('[data-de]').forEach(x=>x.style.display=lang==='de'?'inline':'none');
+ document.getElementById('enBtn').classList.toggle('active',lang==='en');
+ document.getElementById('deBtn').classList.toggle('active',lang==='de');
+}
+setLang('en');
+</script></body></html>

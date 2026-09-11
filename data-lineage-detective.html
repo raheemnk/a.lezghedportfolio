@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Data Lineage Detective — Abdelrahim Lezghed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+<style>
+:root{--bg:#070b10;--card:#0e171f;--text:#edf5f7;--muted:#9aaab6;--line:#1d2b36;--green:#35e0a1;--blue:#55a7ff;--max:920px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 80% 0%,#123326 0,transparent 30%),var(--bg);color:var(--text);font-family:Inter,sans-serif;line-height:1.6}
+a{text-decoration:none;color:inherit}.wrap{max-width:var(--max);margin:auto;padding:0 28px}.mono{font-family:"JetBrains Mono",monospace}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(7,11,16,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:64px}
+.brand{font:600 13px "JetBrains Mono",monospace;color:var(--muted)}.brand strong{color:var(--text)}
+.back{font-size:13px;color:var(--muted);border:1px solid var(--line);padding:7px 13px;border-radius:8px}.back:hover{border-color:var(--green);color:var(--green)}
+.lang{display:flex;gap:5px}.lang button{cursor:pointer;border:1px solid var(--line);background:#0d151c;color:#aebbc4;border-radius:8px;padding:6px 10px;font-weight:800;font-size:13px}.lang button.active{background:var(--green);color:#06110d;border-color:var(--green)}
+.hero{padding:64px 0 48px;border-bottom:1px solid var(--line)}
+.hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:start}
+@media(max-width:800px){.hero-grid{grid-template-columns:1fr}}
+.kicker{font:600 12px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+h1{font-size:clamp(28px,4vw,42px);line-height:1.15;margin:0 0 18px;letter-spacing:-.03em;font-weight:800}
+.lede{color:var(--muted);font-size:17px;max-width:56ch;margin:0 0 26px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}.tag{font:12px "JetBrains Mono",monospace;color:#b7c5cc;border:1px solid #263743;padding:5px 10px;border-radius:999px}
+.titleblock{border:1px solid var(--line);background:var(--card);border-radius:14px;font:12.5px "JetBrains Mono",monospace;overflow:hidden}
+.titleblock .row{display:flex;justify-content:space-between;padding:11px 15px;border-bottom:1px solid var(--line);gap:12px}
+.titleblock .row:last-child{border-bottom:none}.titleblock .k{color:#6c7684}.titleblock .v{color:var(--text);text-align:right;max-width:60%}
+section{padding:56px 0;border-bottom:1px solid var(--line)}section:last-of-type{border-bottom:none}
+.section-head{display:grid;grid-template-columns:140px 1fr;gap:24px;margin-bottom:28px}
+@media(max-width:700px){.section-head{grid-template-columns:1fr}}
+.index-lbl{font:12px "JetBrains Mono",monospace;color:var(--muted);padding-top:6px}
+h2{font-size:24px;margin:0;font-weight:700;letter-spacing:-.02em}
+.section-body{max-width:66ch}.section-body p{color:var(--muted)}
+.problem{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--green);border-radius:0 12px 12px 0;padding:22px 24px;margin-top:6px}
+.problem p{margin:0;color:var(--muted)}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin-top:6px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.features.single{grid-template-columns:1fr}
+@media(max-width:700px){.features{grid-template-columns:1fr}}
+.feature{background:var(--card);padding:20px 22px}.feature h3{font-size:15px;margin:0 0 8px;font-weight:700}
+.feature p{font-size:14px;color:var(--muted);margin:0}.feature .role{font:11px "JetBrains Mono",monospace;color:var(--green);display:block;margin-bottom:8px;letter-spacing:.04em}
+.stack-table{width:100%;border-collapse:collapse;margin-top:6px;font-size:14px}
+.stack-table td{padding:12px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+.stack-table td:first-child{font-family:"JetBrains Mono",monospace;color:var(--green);width:170px;white-space:nowrap}
+.stack-table td:last-child{color:var(--muted)}
+.arch{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;margin-top:24px}
+.arch-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font:12.5px "JetBrains Mono",monospace;color:var(--muted)}
+.arch-box{border:1px solid var(--line);background:#0d151c;border-radius:8px;padding:9px 13px;color:var(--text)}
+.arch-arrow{color:var(--green)}
+.diagrams{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.diagram-chip{border:1px solid var(--line);padding:10px 14px;font-size:13px;color:var(--muted);border-radius:8px;background:var(--card);max-width:230px}
+.diagram-chip b{color:var(--text);font-weight:600;display:block;margin-bottom:2px}
+.code-block{background:#050809;border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-top:18px;overflow-x:auto}
+.code-block .file-label{font:11px "JetBrains Mono",monospace;color:var(--muted);margin-bottom:10px}
+.code-block pre{margin:0}.code-block code.hljs{background:transparent!important;padding:0!important;font:12.5px/1.7 "JetBrains Mono",monospace!important}
+.limits{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.limits li{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px;color:var(--muted);font-size:14.5px}
+.limits li b{color:var(--text)}
+.bugs{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.bugs li{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;color:var(--muted);font-size:14.5px}
+.bugs li b{color:var(--text)}
+.cta{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:44px 0 60px;flex-wrap:wrap}
+.cta h2{font-size:20px}.btn.ghost{font:600 13px "JetBrains Mono",monospace;background:transparent;color:var(--muted);border:1px solid var(--line);padding:12px 20px;border-radius:9px;display:inline-block}
+footer{padding:24px 0 50px;font-size:12px;color:#71808b;font-family:"JetBrains Mono",monospace}
+[data-de]{display:none}
+</style></head><body>
+<div class="topbar"><div class="wrap">
+<div class="brand">PORTFOLIO / <strong><span data-en>Projects</span><span data-de>Projekte</span></strong></div>
+<div style="display:flex;gap:12px;align-items:center">
+<a class="back" href="index.html">← <span data-en>Back</span><span data-de>Zurück</span></a>
+<div class="lang"><button id="enBtn" onclick="setLang('en')">EN</button><button id="deBtn" onclick="setLang('de')">DE</button></div>
+</div></div></div>
+
+<div class="hero"><div class="wrap hero-grid">
+<div>
+<div class="kicker"><span data-en>PERSONAL PROJECT — DATA GOVERNANCE / GRAPH SYSTEMS</span><span data-de>PERSÖNLICHES PROJEKT — DATA GOVERNANCE / GRAPHSYSTEME</span></div>
+<h1><span data-en>Data Lineage Detective — where did this number come from?</span><span data-de>Data Lineage Detective — woher kommt diese Zahl?</span></h1>
+<p class="lede" data-en>A full-stack lineage system built to answer exactly that question: automatic lineage extraction from SQL, Python ETL and dbt into a graph database, precise column-to-column traceability, impact analysis, and an AI layer that queries the graph instead of guessing.</p>
+<p class="lede" data-de>Ein Full-Stack-Lineage-System, das genau diese Frage beantwortet: automatische Lineage-Extraktion aus SQL, Python-ETL und dbt in eine Graphdatenbank, präzise spaltengenaue Rückverfolgbarkeit, Impact-Analyse und eine KI-Schicht, die den Graphen abfragt statt zu raten.</p>
+<div class="tags"><span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">React</span><span class="tag">Graph Database</span><span class="tag">SQL Parsing</span><span class="tag">Claude API</span><span class="tag">pytest</span></div>
+</div>
+<div class="titleblock">
+<div class="row"><span class="k"><span data-en>Type</span><span data-de>Typ</span></span><span class="v"><span data-en>Personal project</span><span data-de>Persönliches Projekt</span></span></div>
+<div class="row"><span class="k"><span data-en>Year</span><span data-de>Jahr</span></span><span class="v">2026</span></div>
+<div class="row"><span class="k"><span data-en>Scale</span><span data-de>Umfang</span></span><span class="v"><span data-en>~1,820 lines Python + 320 lines React, 45 tests</span><span data-de>~1.820 Zeilen Python + 320 Zeilen React, 45 Tests</span></span></div>
+<div class="row"><span class="k"><span data-en>Extractors</span><span data-de>Extraktoren</span></span><span class="v"><span data-en>3 (SQL, Python ETL, dbt)</span><span data-de>3 (SQL, Python-ETL, dbt)</span></span></div>
+<div class="row"><span class="k"><span data-en>Status</span><span data-de>Status</span></span><span class="v"><span data-en>Functional end-to-end, tested, frontend builds and runs</span><span data-de>Durchgängig funktionsfähig, getestet, Frontend baut und läuft</span></span></div>
+</div>
+</div></div>
+
+<section id="problem"><div class="wrap">
+<div class="section-head"><div class="index-lbl">01 — <span data-en>Problem</span><span data-de>Problem</span></div><h2><span data-en>Lineage is tribal knowledge, not data</span><span data-de>Lineage ist stilles Wissen, keine Daten</span></h2></div>
+<div class="section-body">
+<p data-en>"Where does this dashboard number actually come from?" is a question data teams usually answer by tracing SQL by hand, across tools, from memory — especially once the logic is split across raw SQL scripts, Python/pandas ETL jobs and dbt models in the same organization, with no single system that understands all three.</p>
+<p data-de>"Woher kommt diese Zahl im Dashboard eigentlich?" ist eine Frage, die Datenteams meist von Hand beantworten — SQL-Skripte durchforsten, tool-übergreifend, aus dem Gedächtnis — besonders sobald sich die Logik über rohe SQL-Skripte, Python/pandas-ETL-Jobs und dbt-Modelle in derselben Organisation verteilt, ohne ein einziges System, das alle drei versteht.</p>
+<div class="problem">
+<p data-en><b>Goal:</b> extract lineage automatically from all three source types into one graph, answer "what breaks if I change X" in seconds instead of hours, and trace a specific number back to its exact origin column by column — not just "somewhere in this table".</p>
+<p data-de><b>Ziel:</b> Lineage automatisch aus allen drei Quelltypen in einen einzigen Graphen extrahieren, "was bricht, wenn ich X ändere" in Sekunden statt Stunden beantworten, und eine konkrete Zahl spaltengenau bis zu ihrem Ursprung zurückverfolgen — nicht nur "irgendwo in dieser Tabelle".</p>
+</div></div></div></section>
+
+<section id="architecture"><div class="wrap">
+<div class="section-head"><div class="index-lbl">02 — <span data-en>Architecture</span><span data-de>Architektur</span></div><h2><span data-en>Sources → graph → API → frontend + AI</span><span data-de>Quellen → Graph → API → Frontend + KI</span></h2></div>
+<div class="section-body"><p data-en>Three independent extractors feed one graph model (6 node types: Database, Table, Column, Pipeline, Dashboard, API), served through a FastAPI backend to a React graph visualization and a natural-language query layer.</p>
+<p data-de>Drei unabhängige Extraktoren speisen ein einziges Graphmodell (6 Knotentypen: Database, Table, Column, Pipeline, Dashboard, API), bereitgestellt über ein FastAPI-Backend für eine React-Graphvisualisierung und eine natürlichsprachliche Abfrageschicht.</p></div>
+<div class="diagrams">
+<div class="diagram-chip"><b><span data-en>Data model</span><span data-de>Datenmodell</span></b>6 <span data-en>node types</span><span data-de>Knotentypen</span>, CONTAINS/READS_FROM/WRITES_TO/DERIVES_FROM</div>
+<div class="diagram-chip"><b><span data-en>3 extractors</span><span data-de>3 Extraktoren</span></b>SQL (sqlparse), Python (ast), dbt (ref/source)</div>
+<div class="diagram-chip"><b><span data-en>Impact analysis</span><span data-de>Impact-Analyse</span></b><span data-en>table-level propagation + column-level path tracing</span><span data-de>Propagierung auf Tabellenebene + spaltengenaue Pfadverfolgung</span></div>
+<div class="diagram-chip"><b><span data-en>AI layer</span><span data-de>KI-Schicht</span></b><span data-en>tool use, graph-grounded, deterministic fallback</span><span data-de>Tool Use, graphgestützt, deterministischer Fallback</span></div>
+</div>
+<div class="arch">
+<div class="arch-row">
+<span class="arch-box"><span data-en>SQL / Python ETL / dbt sources</span><span data-de>SQL-/Python-ETL-/dbt-Quellen</span></span>
+<span class="arch-arrow">→</span>
+<span class="arch-box"><span data-en>3 extractors</span><span data-de>3 Extraktoren</span></span>
+<span class="arch-arrow">→</span>
+<span class="arch-box">GraphStore <span data-en>(Neo4j / NetworkX)</span><span data-de>(Neo4j / NetworkX)</span></span>
+<span class="arch-arrow">→</span>
+<span class="arch-box">FastAPI</span>
+<span class="arch-arrow">→</span>
+<span class="arch-box">React <span data-en>(graph view + impact panel + AI query)</span><span data-de>(Graphansicht + Impact-Panel + KI-Abfrage)</span></span>
+</div>
+</div>
+</div></section>
+
+<section id="decisions"><div class="wrap">
+<div class="section-head"><div class="index-lbl">03 — <span data-en>Key decisions</span><span data-de>Zentrale Entscheidungen</span></div><h2><span data-en>Technical choices, and why</span><span data-de>Technische Entscheidungen — und warum</span></h2></div>
+<div class="features single">
+<div class="feature"><span class="role"><span data-en>01 — DUAL GRAPH STORE</span><span data-de>01 — DUALER GRAPH STORE</span></span><h3><span data-en>Same interface, real and in-memory</span><span data-de>Gleiches Interface, real und im Speicher</span></h3><p data-en>One <code>GraphStore</code> interface, two implementations: a real <code>Neo4jGraphStore</code> with actual Cypher, ready against the provided <code>docker-compose.yml</code>, and a <code>NetworkXGraphStore</code> with no external server, used to develop and validate the whole system end-to-end without a local Neo4j instance running.</p><p data-de>Ein <code>GraphStore</code>-Interface, zwei Implementierungen: ein echter <code>Neo4jGraphStore</code> mit echtem Cypher, einsatzbereit gegen das mitgelieferte <code>docker-compose.yml</code>, und ein <code>NetworkXGraphStore</code> ohne externen Server, mit dem das gesamte System durchgängig entwickelt und validiert wurde, ohne dass lokal eine Neo4j-Instanz lief.</p></div>
+<div class="feature"><span class="role"><span data-en>02 — TWO GRANULARITIES ON PURPOSE</span><span data-de>02 — ZWEI GRANULARITÄTEN MIT ABSICHT</span></span><h3><span data-en>Practical propagation + precise tracing</span><span data-de>Praktische Propagierung + präzise Rückverfolgung</span></h3><p data-en>Impact analysis propagates at table level (fast, practical "is X affected — yes/no"), while a separate column-path function answers the actual headline question — <code>sales_kpi_table.revenue</code> traced precisely through <code>monthly_revenue.revenue</code> → <code>orders_clean.amount</code> → <code>orders_raw.amount</code>, never through an unrelated table.</p><p data-de>Die Impact-Analyse propagiert auf Tabellenebene (schnell, praktisch "ist X betroffen — ja/nein"), während eine separate Spaltenpfad-Funktion die eigentliche Titelfrage beantwortet — <code>sales_kpi_table.revenue</code> präzise zurückverfolgt über <code>monthly_revenue.revenue</code> → <code>orders_clean.amount</code> → <code>orders_raw.amount</code>, nie über eine unbeteiligte Tabelle.</p></div>
+<div class="feature"><span class="role"><span data-en>03 — AST, NOT REGEX</span><span data-de>03 — AST STATT REGEX</span></span><h3><span data-en>Parsing Python ETL properly</span><span data-de>Python-ETL richtig geparst</span></h3><p data-en>The Python ETL extractor uses the standard <code>ast</code> module to find <code>pd.read_sql(...)</code> / <code>.to_sql(...)</code> calls — parsing actual syntax rather than pattern-matching on source text, which breaks the moment formatting changes.</p><p data-de>Der Python-ETL-Extraktor nutzt das Standardmodul <code>ast</code>, um <code>pd.read_sql(...)</code>/<code>.to_sql(...)</code>-Aufrufe zu finden — echtes Parsen der Syntax statt Mustererkennung im Quelltext, die bei jeder Formatierungsänderung bricht.</p></div>
+<div class="feature"><span class="role"><span data-en>04 — A DELIBERATE CONTROL GROUP</span><span data-de>04 — EINE BEWUSSTE KONTROLLGRUPPE</span></span><h3><span data-en>Proving impact analysis excludes, not just includes</span><span data-de>Beweis, dass die Impact-Analyse ausschließt, nicht nur einschließt</span></h3><p data-en>An intentionally unrelated pipeline (<code>product_catalog</code>) is included in the test graph and explicitly tested to stay out of every impact report it shouldn't appear in — proving the analysis isn't just "return everything".</p><p data-de>Eine absichtlich unbeteiligte Pipeline (<code>product_catalog</code>) ist im Testgraphen enthalten und wird explizit darauf getestet, aus jedem Impact-Report herauszubleiben, in dem sie nicht erscheinen sollte — als Beweis, dass die Analyse nicht einfach "alles zurückgibt".</p></div>
+<div class="feature"><span class="role"><span data-en>05 — STRICT DECIDE / QUERY SEPARATION</span><span data-de>05 — STRIKTE TRENNUNG VON ENTSCHEIDEN UND ABFRAGEN</span></span><h3><span data-en>The LLM orchestrates, the graph answers</span><span data-de>Das LLM orchestriert, der Graph antwortet</span></h3><p data-en>Claude only calls real graph-query functions (<code>find_downstream_dependencies</code>, <code>find_upstream_dependencies</code>, <code>get_pipeline_metadata</code>) via tool use and formulates the answer from their results — with a deterministic pattern-matching fallback for offline testing, so the AI layer is never the source of truth.</p><p data-de>Claude ruft ausschließlich echte Graph-Abfragefunktionen (<code>find_downstream_dependencies</code>, <code>find_upstream_dependencies</code>, <code>get_pipeline_metadata</code>) per Tool Use auf und formuliert die Antwort aus deren Ergebnissen — mit einem deterministischen Mustererkennungs-Fallback für Offline-Tests, sodass die KI-Schicht nie die Quelle der Wahrheit ist.</p></div>
+</div></div></section>
+
+<section id="honest-eng"><div class="wrap">
+<div class="section-head"><div class="index-lbl">04 — <span data-en>What testing surfaced</span><span data-de>Was das Testen offenlegte</span></div><h2><span data-en>3 real disambiguation bugs, found and fixed</span><span data-de>3 echte Disambiguierungs-Bugs, gefunden und behoben</span></h2></div>
+<div class="section-body"><p data-en>Best-effort SQL parsing hits genuine edge cases. All three were found through testing, not assumed away:</p>
+<p data-de>Best-Effort-SQL-Parsing stößt auf echte Grenzfälle. Alle drei wurden durch Tests gefunden, nicht einfach angenommen:</p></div>
+<ul class="bugs">
+<li><span data-en><b><code>date_trunc('month', ...)</code></b> — the quoted literal <code>'month'</code> was mistaken for a source column name.</span><span data-de><b><code>date_trunc('month', ...)</code></b> — das Literal <code>'month'</code> in Anführungszeichen wurde fälschlich als Quellspalte erkannt.</span></li>
+<li><span data-en><b><code>SUM(amount) AS revenue</code></b> — the alias <code>revenue</code> ended up listed among its own sources.</span><span data-de><b><code>SUM(amount) AS revenue</code></b> — der Alias <code>revenue</code> tauchte in seinen eigenen Quellen auf.</span></li>
+<li><span data-en><b><code>JOIN customers_clean c ON ...</code> then <code>c.customer_id</code></b> — the alias <code>c</code> was dropped, and resolution silently fell back to the first table by appearance order instead of the correct one.</span><span data-de><b><code>JOIN customers_clean c ON ...</code> gefolgt von <code>c.customer_id</code></b> — der Alias <code>c</code> ging verloren, die Auflösung fiel stillschweigend auf die erste Tabelle in Reihenfolge zurück statt auf die richtige.</span></li>
+<li><span data-en><b>Vite build-time env vars in Docker</b> — <code>VITE_*</code> variables are frozen at <code>npm run build</code>, not container start. <code>docker-compose.yml</code> passes them as <code>build.args</code>, not runtime <code>environment</code> — a classic trap otherwise.</span><span data-de><b>Vite-Build-Time-Umgebungsvariablen in Docker</b> — <code>VITE_*</code>-Variablen werden bei <code>npm run build</code> eingefroren, nicht beim Containerstart. <code>docker-compose.yml</code> übergibt sie als <code>build.args</code>, nicht als Laufzeit-<code>environment</code> — sonst eine klassische Falle.</span></li>
+</ul>
+</div></section>
+
+<section id="code"><div class="wrap">
+<div class="section-head"><div class="index-lbl">05 — <span data-en>Code</span><span data-de>Code</span></div><h2><span data-en>Resolving which column really is the source</span><span data-de>Auflösen, welche Spalte wirklich die Quelle ist</span></h2></div>
+<div class="section-body"><p data-en>Excerpt from <code>sql_lineage.py</code> — the function fixing all three disambiguation bugs above: literals stripped before identifier matching, aliases resolved to real table names, and self-referencing aliases excluded.</p>
+<p data-de>Ausschnitt aus <code>sql_lineage.py</code> — die Funktion, die alle drei oben genannten Disambiguierungs-Bugs behebt: Literale werden vor dem Identifier-Matching entfernt, Aliase auf echte Tabellennamen aufgelöst, und selbstreferenzierende Aliase ausgeschlossen.</p></div>
+<div class="code-block"><div class="file-label">src/extraction/sql_lineage.py</div><pre><code class="language-python">def _colonnes_sources_dun_item(
+    item: str, alias_tables: dict[str, str], nom_cible: str | None = None
+) -> list[tuple[str | None, str]]:
+    # Strip quoted literals first: date_trunc('month', ...) must not
+    # treat 'month' as a source column name (bug #1).
+    sans_litteraux = re.sub(r"'[^']*'|\"[^\"]*\"", " ", item)
+
+    identifiants = re.findall(r"\b([a-zA-Z_]\w*)(?:\.([a-zA-Z_]\w*))?\b", sans_litteraux)
+    sources: list[tuple[str | None, str]] = []
+    for premier, second in identifiants:
+        if second:  # 'alias.column' form: resolve the alias to its real table
+            if premier.lower() not in MOTS_CLES_SQL:
+                table_resolue = alias_tables.get(premier)  # bug #3 fix
+                sources.append((table_resolue, second))
+        elif premier.lower() not in MOTS_CLES_SQL and premier not in alias_tables:
+            sources.append((None, premier))  # unqualified: ambiguous if several source tables
+
+    vues, resultat = set(), []
+    for table_resolue, colonne in sources:
+        cle = (table_resolue, colonne)
+        # colonne != nom_cible excludes the target's own alias from its
+        # sources: "SUM(amount) AS revenue" must not list revenue itself (bug #2).
+        if cle not in vues and colonne != nom_cible:
+            vues.add(cle)
+            resultat.append((table_resolue, colonne))
+    return resultat</code></pre></div>
+</div></section>
+
+<section id="limits"><div class="wrap">
+<div class="section-head"><div class="index-lbl">06 — <span data-en>Technical Validation & Limitations</span><span data-de>Technische Validierung & Einschränkungen</span></div><h2><span data-en>What has been validated</span><span data-de>Was validiert wurde</span></h2></div>
+<ul class="limits">
+<li><span data-en><b>Neo4j integration:</b> <code>Neo4jGraphStore</code> is implemented with real Cypher, ready against the provided <code>docker-compose.yml</code>. Development and testing ran against the equivalent <code>NetworkXGraphStore</code>, as no local Neo4j instance was running; the Cypher path itself was not exercised live.</span><span data-de><b>Neo4j-Integration:</b> <code>Neo4jGraphStore</code> ist mit echtem Cypher implementiert, einsatzbereit gegen das mitgelieferte <code>docker-compose.yml</code>. Entwicklung und Tests liefen gegen den äquivalenten <code>NetworkXGraphStore</code>, da keine lokale Neo4j-Instanz lief; der Cypher-Pfad selbst wurde nicht live ausgeführt.</span></li>
+<li><span data-en><b>SQL parsing:</b> best-effort syntactic extraction, the same category of tool as sqllineage or most market tools, not a full semantic SQL analyzer. A dynamically-built table name in Python, or a deeply nested subquery, may not resolve.</span><span data-de><b>SQL-Parsing:</b> Best-Effort-syntaktische Extraktion, dieselbe Werkzeugkategorie wie sqllineage oder die meisten marktüblichen Tools, kein vollständiger semantischer SQL-Analyzer. Ein dynamisch in Python erzeugter Tabellenname oder eine tief verschachtelte Subquery lässt sich unter Umständen nicht auflösen.</span></li>
+<li><span data-en><b>Impact propagation:</b> table-level by design — once a column changes, the whole table is considered affected downstream. A deliberate trade-off between practicality and precision (justified in the code), with exact column-level tracing available separately.</span><span data-de><b>Impact-Propagierung:</b> mit Absicht auf Tabellenebene — sobald sich eine Spalte ändert, gilt die gesamte Tabelle für die weitere Propagierung als betroffen. Ein bewusster Kompromiss zwischen Praktikabilität und Präzision (im Code begründet), mit separat verfügbarer exakter Spaltenrückverfolgung.</span></li>
+<li><span data-en><b>AI query layer:</b> validated through its deterministic fallback, tested to answer correctly from graph queries alone. No API key was configured for this development pass, so the live Claude tool-use call itself was not validated.</span><span data-de><b>KI-Abfrageschicht:</b> über ihren deterministischen Fallback validiert, nachweislich korrekt allein aus Graph-Abfragen beantwortet. Für diesen Entwicklungsdurchlauf war kein API-Schlüssel konfiguriert, daher wurde der eigentliche Live-Tool-Use-Aufruf an Claude nicht validiert.</span></li>
+</ul>
+</div></section>
+
+<section id="stack"><div class="wrap">
+<div class="section-head"><div class="index-lbl">07 — <span data-en>Stack</span><span data-de>Stack</span></div><h2><span data-en>Tools used</span><span data-de>Verwendete Werkzeuge</span></h2></div>
+<table class="stack-table">
+<tr><td><span data-en>Language</span><span data-de>Sprache</span></td><td>Python</td></tr>
+<tr><td><span data-en>API</span><span data-de>API</span></td><td>FastAPI</td></tr>
+<tr><td><span data-en>Graph database</span><span data-de>Graphdatenbank</span></td><td>Neo4j <span data-en>(real Cypher) / NetworkX (in-memory)</span><span data-de>(echtes Cypher) / NetworkX (im Speicher)</span></td></tr>
+<tr><td><span data-en>SQL parsing</span><span data-de>SQL-Parsing</span></td><td>sqlparse</td></tr>
+<tr><td><span data-en>Python ETL parsing</span><span data-de>Python-ETL-Parsing</span></td><td><span data-en>Python <code>ast</code> module</span><span data-de>Python-<code>ast</code>-Modul</span></td></tr>
+<tr><td><span data-en>Frontend</span><span data-de>Frontend</span></td><td>React + Vite + vis-network</td></tr>
+<tr><td><span data-en>AI layer</span><span data-de>KI-Schicht</span></td><td>Claude API <span data-en>(tool use, deterministic fallback)</span><span data-de>(Tool Use, deterministischer Fallback)</span></td></tr>
+<tr><td><span data-en>Tests</span><span data-de>Tests</span></td><td>pytest — 45 <span data-en>tests</span><span data-de>Tests</span></td></tr>
+<tr><td><span data-en>Environment</span><span data-de>Umgebung</span></td><td>Docker Compose</td></tr>
+<tr><td>CI/CD</td><td>GitHub Actions</td></tr>
+</table>
+</div></section>
+
+<div class="wrap"><div class="cta">
+<div><h2><span data-en>Questions about the design?</span><span data-de>Fragen zum Design?</span></h2>
+<p style="color:var(--muted);margin:6px 0 0" data-en>Happy to walk through the lineage extraction, the impact analysis granularity or the AI query layer.</p>
+<p style="color:var(--muted);margin:6px 0 0" data-de>Gerne erläutere ich die Lineage-Extraktion, die Granularität der Impact-Analyse oder die KI-Abfrageschicht.</p></div>
+<div><a class="btn ghost" href="mailto:ar.lezghed@gmail.com"><span data-en>Get in touch</span><span data-de>Kontakt aufnehmen</span></a></div>
+</div></div>
+<footer><div class="wrap">© Abdelrahim Lezghed — <span data-en>personal project</span><span data-de>persönliches Projekt</span>, 2026</div></footer>
+<script>
+hljs.highlightAll();
+function setLang(lang){
+ document.documentElement.lang=lang;
+ document.querySelectorAll('[data-en]').forEach(x=>x.style.display=lang==='en'?'inline':'none');
+ document.querySelectorAll('[data-de]').forEach(x=>x.style.display=lang==='de'?'inline':'none');
+ document.getElementById('enBtn').classList.toggle('active',lang==='en');
+ document.getElementById('deBtn').classList.toggle('active',lang==='de');
+}
+setLang('en');
+</script></body></html>

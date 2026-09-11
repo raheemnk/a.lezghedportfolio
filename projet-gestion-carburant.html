@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fleet & Fuel Data System — Abdelrahim Lezghed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070b10;--card:#0e171f;--text:#edf5f7;--muted:#9aaab6;--line:#1d2b36;--green:#35e0a1;--blue:#55a7ff;--max:920px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 80% 0%,#123326 0,transparent 30%),var(--bg);color:var(--text);font-family:Inter,sans-serif;line-height:1.6}
+a{text-decoration:none;color:inherit}.wrap{max-width:var(--max);margin:auto;padding:0 28px}.mono{font-family:"JetBrains Mono",monospace}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(7,11,16,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:64px}
+.brand{font:600 13px "JetBrains Mono",monospace;color:var(--muted)}.brand strong{color:var(--text)}
+.back{font-size:13px;color:var(--muted);border:1px solid var(--line);padding:7px 13px;border-radius:8px}.back:hover{border-color:var(--green);color:var(--green)}
+.lang{display:flex;gap:5px}.lang button{cursor:pointer;border:1px solid var(--line);background:#0d151c;color:#aebbc4;border-radius:8px;padding:6px 10px;font-weight:800;font-size:13px}.lang button.active{background:var(--green);color:#06110d;border-color:var(--green)}
+.hero{padding:64px 0 48px;border-bottom:1px solid var(--line)}
+.hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:start}
+@media(max-width:800px){.hero-grid{grid-template-columns:1fr}}
+.kicker{font:600 12px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+h1{font-size:clamp(30px,4.2vw,44px);line-height:1.15;margin:0 0 18px;letter-spacing:-.03em;font-weight:800}
+.lede{color:var(--muted);font-size:17px;max-width:52ch;margin:0 0 26px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}.tag{font:12px "JetBrains Mono",monospace;color:#b7c5cc;border:1px solid #263743;padding:5px 10px;border-radius:999px}
+.gauges{display:flex;gap:22px;margin-top:36px;flex-wrap:wrap}
+.gauge{width:110px;text-align:center}.gauge svg{display:block;margin:0 auto}
+.gauge .pct{font:15px "JetBrains Mono",monospace;margin-top:6px}.gauge .label{font-size:11px;color:var(--muted);margin-top:2px}
+.titleblock{border:1px solid var(--line);background:var(--card);border-radius:14px;font:12.5px "JetBrains Mono",monospace;overflow:hidden}
+.titleblock .row{display:flex;justify-content:space-between;padding:11px 15px;border-bottom:1px solid var(--line);gap:12px}
+.titleblock .row:last-child{border-bottom:none}.titleblock .k{color:#6c7684}.titleblock .v{color:var(--text);text-align:right}
+section{padding:56px 0;border-bottom:1px solid var(--line)}section:last-of-type{border-bottom:none}
+.section-head{display:grid;grid-template-columns:140px 1fr;gap:24px;margin-bottom:28px}
+@media(max-width:700px){.section-head{grid-template-columns:1fr}}
+.index-lbl{font:12px "JetBrains Mono",monospace;color:var(--muted);padding-top:6px}
+h2{font-size:24px;margin:0;font-weight:700;letter-spacing:-.02em}
+.section-body{max-width:64ch}.section-body p{color:var(--muted)}
+.problem{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--green);border-radius:0 12px 12px 0;padding:22px 24px;margin-top:6px}
+.problem p{margin:0;color:var(--muted)}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin-top:6px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+@media(max-width:700px){.features{grid-template-columns:1fr}}
+.feature{background:var(--card);padding:20px 22px}.feature h3{font-size:15px;margin:0 0 8px;font-weight:700}
+.feature p{font-size:14px;color:var(--muted);margin:0}.feature .role{font:11px "JetBrains Mono",monospace;color:var(--green);display:block;margin-bottom:8px;letter-spacing:.04em}
+.stack-table{width:100%;border-collapse:collapse;margin-top:6px;font-size:14px}
+.stack-table td{padding:12px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+.stack-table td:first-child{font-family:"JetBrains Mono",monospace;color:var(--green);width:150px;white-space:nowrap}
+.stack-table td:last-child{color:var(--muted)}
+.diagrams{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.diagram-chip{border:1px solid var(--line);padding:8px 12px;font-size:13px;color:var(--muted);border-radius:8px;background:var(--card)}
+.diagram-chip b{color:var(--text);font-weight:600}
+.arch{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;margin-top:24px}
+.arch-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font:13px "JetBrains Mono",monospace;color:var(--muted)}
+.arch-box{border:1px solid var(--line);background:#0d151c;border-radius:8px;padding:10px 14px;color:var(--text)}
+.arch-arrow{color:var(--green)}
+.screenframe{border:1px solid var(--line);background:var(--card);margin-top:24px;overflow:hidden;border-radius:12px}
+.screenframe .chrome{display:flex;align-items:center;gap:6px;padding:8px 12px;border-bottom:1px solid var(--line)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.screenframe .cap{padding:10px 12px;font:12px "JetBrains Mono",monospace;color:var(--muted);border-top:1px solid var(--line)}
+.screenframe img{display:block;width:100%;height:auto;background:#fff}
+.shot-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:24px}
+@media(max-width:700px){.shot-grid{grid-template-columns:1fr}}.shot-grid .screenframe{margin-top:0}
+footer{padding:24px 0 50px;font-size:12px;color:#71808b;font-family:"JetBrains Mono",monospace}
+.cta{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:44px 0 60px;flex-wrap:wrap}
+.cta h2{font-size:20px}.btn.ghost{font:600 13px "JetBrains Mono",monospace;background:transparent;color:var(--muted);border:1px solid var(--line);padding:12px 20px;border-radius:9px;display:inline-block}
+[data-de]{display:none}
+</style></head><body>
+<div class="topbar"><div class="wrap">
+<div class="brand">PORTFOLIO / <strong><span data-en>Projects</span><span data-de>Projekte</span></strong></div>
+<div style="display:flex;gap:12px;align-items:center">
+<a class="back" href="index.html">← <span data-en>Back</span><span data-de>Zurück</span></a>
+<div class="lang"><button id="enBtn" onclick="setLang('en')">EN</button><button id="deBtn" onclick="setLang('de')">DE</button></div>
+</div></div></div>
+
+<div class="hero"><div class="wrap hero-grid">
+<div>
+<div class="kicker"><span data-en>FINAL YEAR PROJECT — COMPUTER SCIENCE BACHELOR</span><span data-de>ABSCHLUSSPROJEKT — BACHELOR INFORMATIK</span></div>
+<h1><span data-en>Fleet & Fuel Data System</span><span data-de>Flotten- & Kraftstoff-Datensystem</span></h1>
+<p class="lede" data-en>A final-year bachelor's project built in the real operating context of a port company (EPAN), centered on one core loop: every resupply is checked against the equipment's condition and mileage, triggering a preventive-maintenance recommendation backed by the technical documentation stored in the database.</p>
+<p class="lede" data-de>Ein Bachelor-Abschlussprojekt im realen Betriebskontext eines Hafenunternehmens (EPAN), aufgebaut um einen zentralen Kreislauf: Jede Betankung wird gegen Zustand und Kilometerstand der Anlage geprüft und löst bei Bedarf eine Empfehlung zur vorbeugenden Wartung aus, gestützt auf die in der Datenbank hinterlegte technische Dokumentation.</p>
+<div class="tags"><span class="tag">C++</span><span class="tag">Visual Studio</span><span class="tag">MySQL</span><span class="tag">XAMPP</span><span class="tag">UML — Modelio</span></div>
+<div class="gauges">
+<div class="gauge"><svg width="84" height="84" viewBox="0 0 90 90"><circle cx="45" cy="45" r="36" fill="none" stroke="#1d2b36" stroke-width="8"/><circle cx="45" cy="45" r="36" fill="none" stroke="#35e0a1" stroke-width="8" stroke-dasharray="226" stroke-dashoffset="159" stroke-linecap="round" transform="rotate(-90 45 45)"/></svg><div class="pct">29.7% <span data-en>· 8,900 L</span><span data-de>· 8.900 L</span></div><div class="label"><span data-en>North Station</span><span data-de>Station Nord</span></div></div>
+<div class="gauge"><svg width="84" height="84" viewBox="0 0 90 90"><circle cx="45" cy="45" r="36" fill="none" stroke="#1d2b36" stroke-width="8"/><circle cx="45" cy="45" r="36" fill="none" stroke="#35e0a1" stroke-width="8" stroke-dasharray="226" stroke-dashoffset="204" stroke-linecap="round" transform="rotate(-90 45 45)"/></svg><div class="pct">9.7% <span data-en>· 2,900 L</span><span data-de>· 2.900 L</span></div><div class="label"><span data-en>South Station</span><span data-de>Station Süd</span></div></div>
+<div class="gauge"><svg width="84" height="84" viewBox="0 0 90 90"><circle cx="45" cy="45" r="36" fill="none" stroke="#1d2b36" stroke-width="8"/><circle cx="45" cy="45" r="36" fill="none" stroke="#35e0a1" stroke-width="8" stroke-dasharray="226" stroke-dashoffset="169" stroke-linecap="round" transform="rotate(-90 45 45)"/></svg><div class="pct">25% <span data-en>· 3,000 L</span><span data-de>· 3.000 L</span></div><div class="label"><span data-en>SNVI Truck</span><span data-de>LKW SNVI</span></div></div>
+<div class="gauge"><svg width="84" height="84" viewBox="0 0 90 90"><circle cx="45" cy="45" r="36" fill="none" stroke="#1d2b36" stroke-width="8"/><circle cx="45" cy="45" r="36" fill="none" stroke="#35e0a1" stroke-width="8" stroke-dasharray="226" stroke-dashoffset="186" stroke-linecap="round" transform="rotate(-90 45 45)"/></svg><div class="pct">17.5% <span data-en>· 1,400 L</span><span data-de>· 1.400 L</span></div><div class="label"><span data-en>IVECO Truck</span><span data-de>LKW IVECO</span></div></div>
+</div>
+</div>
+<div class="titleblock">
+<div class="row"><span class="k"><span data-en>Institution</span><span data-de>Institution</span></span><span class="v">Badji Mokhtar University — Annaba</span></div>
+<div class="row"><span class="k"><span data-en>Department</span><span data-de>Fachbereich</span></span><span class="v"><span data-en>Computer Science</span><span data-de>Informatik</span></span></div>
+<div class="row"><span class="k"><span data-en>Year</span><span data-de>Jahr</span></span><span class="v">2019 – 2020</span></div>
+<div class="row"><span class="k"><span data-en>Authors</span><span data-de>Verfasser</span></span><span class="v">N. Boutabia, A. Lezghed</span></div>
+<div class="row"><span class="k"><span data-en>Supervisor</span><span data-de>Betreuung</span></span><span class="v">Dr. N. Zehouani</span></div>
+<div class="row"><span class="k"><span data-en>Client</span><span data-de>Auftraggeber</span></span><span class="v"><span data-en>Port Company — EPAN</span><span data-de>Hafenunternehmen — EPAN</span></span></div>
+<div class="row"><span class="k"><span data-en>Status</span><span data-de>Status</span></span><span class="v"><span data-en>Academic project, tested with real EPAN data</span><span data-de>Akademisches Projekt, mit realen EPAN-Daten getestet</span></span></div>
+</div>
+</div></div>
+
+<section id="contexte"><div class="wrap">
+<div class="section-head"><div class="index-lbl">01 — <span data-en>Context</span><span data-de>Kontext</span></div><h2><span data-en>The problem</span><span data-de>Das Problem</span></h2></div>
+<div class="section-body">
+<p data-en>Fuel and lubricant were tracked like ordinary warehouse stock, even though they cannot physically sit in one place: they are spread across fixed, mobile and floating distribution stations. Resupply, equipment mileage and condition were logged manually — slow, tedious and error-prone.</p>
+<p data-de>Kraftstoff und Schmierstoffe wurden wie gewöhnliche Lagerware behandelt, obwohl sie physisch nicht an einem Ort gelagert werden können: Sie sind auf feste, mobile und schwimmende Verteilstationen verteilt. Betankung, Kilometerstand und Zustand der Anlagen wurden manuell erfasst — langsam, mühsam und fehleranfällig.</p>
+<div class="problem">
+<p data-en>Each department had to report its resupply requests and floating-unit stock levels once a month, with no real-time visibility into actual fuel levels or equipment condition.</p>
+<p data-de>Jede Abteilung musste ihre Nachschubanfragen und Bestände der schwimmenden Einheiten einmal im Monat melden — ohne Echtzeit-Einblick in tatsächliche Kraftstoffstände oder den Zustand der Anlagen.</p>
+</div></div></div></section>
+
+<section id="solution"><div class="wrap">
+<div class="section-head"><div class="index-lbl">02 — <span data-en>Solution</span><span data-de>Lösung</span></div><h2><span data-en>What the system does</span><span data-de>Was das System leistet</span></h2></div>
+<div class="section-body">
+<p data-en>A desktop application built in C++ with Visual Studio, running on a MySQL database served through a local XAMPP (Apache/PHP) stack, for two user roles — department head ("chef service") and station manager ("chef station") — each with their own access rights. Every resupply, mileage reading and equipment record is written to a normalized 18-table schema instead of scattered spreadsheets.</p>
+<p data-de>Eine mit C++ und Visual Studio entwickelte Desktop-Anwendung auf einer MySQL-Datenbank, bereitgestellt über einen lokalen XAMPP-Stack (Apache/PHP), für zwei Nutzerrollen — Abteilungsleiter ("chef service") und Stationsleiter ("chef station") — jeweils mit eigenen Zugriffsrechten. Jede Betankung, jeder Kilometerstand und jeder Anlagen-Datensatz wird in ein normalisiertes 18-Tabellen-Schema geschrieben statt in verstreute Tabellenblätter.</p>
+</div>
+<div class="features">
+<div class="feature"><span class="role"><span data-en>CHEF SERVICE</span><span data-de>CHEF SERVICE</span></span><h3><span data-en>Cross-station oversight</span><span data-de>Stationsübergreifende Aufsicht</span></h3><p data-en>Views and filters the equipment list, reviews and modifies resupply requests across all stations, and consults stock levels station by station.</p><p data-de>Sieht und filtert die Anlagenliste, prüft und ändert Nachschubanfragen über alle Stationen hinweg und ruft die Bestände je Station ab.</p></div>
+<div class="feature"><span class="role"><span data-en>CHEF STATION</span><span data-de>CHEF STATION</span></span><h3><span data-en>Station-level operations</span><span data-de>Betrieb auf Stationsebene</span></h3><p data-en>Manages their own station's stock and inventory entries, submits new resupply requests, and records new inventory counts directly.</p><p data-de>Verwaltet Bestand und Inventurerfassung der eigenen Station, stellt neue Nachschubanfragen und erfasst neue Inventurzählungen direkt.</p></div>
+<div class="feature"><span class="role"><span data-en>CORE LOOP</span><span data-de>KERNPROZESS</span></span><h3><span data-en>Preventive maintenance at every resupply</span><span data-de>Vorbeugende Wartung bei jeder Betankung</span></h3><p data-en>Each time a vehicle is refueled, its recorded mileage and condition are checked against maintenance criteria. The system flags equipment that needs servicing and points to the technical documentation stored in the database for the intervention required.</p><p data-de>Bei jeder Betankung werden erfasster Kilometerstand und Zustand gegen die Wartungskriterien geprüft. Das System markiert Anlagen mit Wartungsbedarf und verweist auf die in der Datenbank hinterlegte technische Dokumentation für den erforderlichen Eingriff.</p></div>
+<div class="feature"><span class="role"><span data-en>EQUIPMENT</span><span data-de>ANLAGEN</span></span><h3><span data-en>Fleet records</span><span data-de>Flotten-Datensätze</span></h3><p data-en>Each equipment record carries manufacturer, model, serial number, department and family, filterable by name, family or management section.</p><p data-de>Jeder Anlagendatensatz enthält Hersteller, Modell, Seriennummer, Abteilung und Familie, filterbar nach Name, Familie oder Verwaltungsbereich.</p></div>
+<div class="feature"><span class="role"><span data-en>DATA MODEL</span><span data-de>DATENMODELL</span></span><h3><span data-en>18-table relational schema</span><span data-de>Relationales Schema mit 18 Tabellen</span></h3><p data-en>Equipment, stations, suppliers, drivers, lubricants, resupply and inventory events are modeled as distinct, related entities rather than flat spreadsheet rows.</p><p data-de>Anlagen, Stationen, Lieferanten, Fahrer, Schmierstoffe, Betankungen und Inventurereignisse sind als eigenständige, verknüpfte Entitäten modelliert statt als flache Tabellenzeilen.</p></div>
+</div></div></section>
+
+<section id="architecture"><div class="wrap">
+<div class="section-head"><div class="index-lbl">03 — <span data-en>Design</span><span data-de>Entwurf</span></div><h2><span data-en>UML modeling, before any code</span><span data-de>UML-Modellierung vor jeder Codezeile</span></h2></div>
+<div class="section-body"><p data-en>Design followed a full UML modeling pass with Modelio, in this order: data dictionary, use case diagram, class diagram, sequence diagrams for each key flow, and activity diagrams per role — before any implementation.</p>
+<p data-de>Der Entwurf folgte einer vollständigen UML-Modellierung mit Modelio, in dieser Reihenfolge: Datenwörterbuch, Anwendungsfalldiagramm, Klassendiagramm, Sequenzdiagramme für jeden zentralen Ablauf sowie Aktivitätsdiagramme je Rolle — vor jeder Implementierung.</p></div>
+<div class="diagrams">
+<div class="diagram-chip"><b><span data-en>Data dictionary</span><span data-de>Datenwörterbuch</span></b> <span data-en>— 18 entities</span><span data-de>— 18 Entitäten</span></div>
+<div class="diagram-chip"><b><span data-en>Use case diagram</span><span data-de>Anwendungsfalldiagramm</span></b></div>
+<div class="diagram-chip"><b><span data-en>Class diagram</span><span data-de>Klassendiagramm</span></b></div>
+<div class="diagram-chip"><b><span data-en>Sequence diagrams</span><span data-de>Sequenzdiagramme</span></b> <span data-en>(5)</span><span data-de>(5)</span></div>
+<div class="diagram-chip"><b><span data-en>Activity diagrams</span><span data-de>Aktivitätsdiagramme</span></b> <span data-en>per role</span><span data-de>je Rolle</span></div>
+</div>
+<div class="arch">
+<div class="arch-row">
+<span class="arch-box"><span data-en>Desktop client (C++, Visual Studio)</span><span data-de>Desktop-Client (C++, Visual Studio)</span></span>
+<span class="arch-arrow">→</span>
+<span class="arch-box"><span data-en>XAMPP (Apache / PHP)</span><span data-de>XAMPP (Apache / PHP)</span></span>
+<span class="arch-arrow">→</span>
+<span class="arch-box">MySQL</span>
+<span class="arch-arrow">→</span>
+<span class="arch-box"><span data-en>Stock, resupply & inventory views</span><span data-de>Bestand-, Nachschub- und Inventuransichten</span></span>
+</div>
+</div>
+</div></section>
+
+<section id="screens"><div class="wrap">
+<div class="section-head"><div class="index-lbl">04 — <span data-en>Interface</span><span data-de>Oberfläche</span></div><h2><span data-en>The application, in use</span><span data-de>Die Anwendung im Einsatz</span></h2></div>
+<div class="shot-grid">
+<div class="screenframe"><div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+<img src="images/accueil.png" alt="Application home screen"><div class="cap"><span data-en>Home screen with quick actions for equipment, resupply and documentation</span><span data-de>Startbildschirm mit Schnellzugriff auf Anlagen, Nachschub und Dokumentation</span></div></div>
+<div class="screenframe"><div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+<img src="images/stock-par-station.png" alt="Stock levels by station"><div class="cap"><span data-en>Stock levels by station, updated from resupply and inventory records</span><span data-de>Bestände je Station, aktualisiert aus Nachschub- und Inventurdaten</span></div></div>
+<div class="screenframe"><div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+<img src="images/liste-equipements.png" alt="Equipment list"><div class="cap"><span data-en>Equipment list, filterable by name, family or management section</span><span data-de>Anlagenliste, filterbar nach Name, Familie oder Verwaltungsbereich</span></div></div>
+<div class="screenframe"><div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+<img src="images/ajout-equipement.png" alt="Add new equipment form"><div class="cap"><span data-en>Adding a new equipment record, with manufacturer, model and documentation fields</span><span data-de>Erfassung einer neuen Anlage mit Hersteller-, Modell- und Dokumentationsfeldern</span></div></div>
+<div class="screenframe"><div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+<img src="images/liste-inventaire.png" alt="Inventory list"><div class="cap"><span data-en>Inventory records, filterable by date, section, equipment or department</span><span data-de>Inventurdaten, filterbar nach Datum, Bereich, Anlage oder Abteilung</span></div></div>
+<div class="screenframe"><div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+<img src="images/nouvelle-prise-inventaire.png" alt="New inventory entry form"><div class="cap"><span data-en>Recording a new inventory count</span><span data-de>Erfassung einer neuen Inventurzählung</span></div></div>
+</div>
+<div class="shot-grid" style="margin-top:22px">
+<div class="screenframe"><div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+<img src="images/diagramme-cas-utilisation.png" alt="UML use case diagram"><div class="cap"><span data-en>Use case diagram — chef service vs. chef station rights</span><span data-de>Anwendungsfalldiagramm — Rechte von Chef Service und Chef Station</span></div></div>
+<div class="screenframe"><div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+<img src="images/diagramme-classe.png" alt="UML class diagram"><div class="cap"><span data-en>Class diagram — user, station, equipment and consumption entities</span><span data-de>Klassendiagramm — Entitäten Nutzer, Station, Anlage und Verbrauch</span></div></div>
+</div>
+</div></section>
+
+<section id="stack"><div class="wrap">
+<div class="section-head"><div class="index-lbl">05 — <span data-en>Stack</span><span data-de>Stack</span></div><h2><span data-en>Tools used</span><span data-de>Verwendete Werkzeuge</span></h2></div>
+<table class="stack-table">
+<tr><td><span data-en>Language</span><span data-de>Sprache</span></td><td>C++</td></tr>
+<tr><td><span data-en>Environment</span><span data-de>Umgebung</span></td><td>Visual Studio</td></tr>
+<tr><td><span data-en>Database</span><span data-de>Datenbank</span></td><td>MySQL</td></tr>
+<tr><td><span data-en>Local server</span><span data-de>Lokaler Server</span></td><td>XAMPP (Apache / PHP)</td></tr>
+<tr><td><span data-en>Modeling</span><span data-de>Modellierung</span></td><td>UML — Modelio</td></tr>
+<tr><td><span data-en>Scope</span><span data-de>Umfang</span></td><td><span data-en>18-table schema, 2 user roles</span><span data-de>18-Tabellen-Schema, 2 Nutzerrollen</span></td></tr>
+</table>
+</div></section>
+
+<div class="wrap"><div class="cta">
+<div><h2><span data-en>Questions about the implementation?</span><span data-de>Fragen zur Umsetzung?</span></h2>
+<p style="color:var(--muted);margin:6px 0 0" data-en>Happy to walk through the data model, the UML design process or the role-based access logic.</p>
+<p style="color:var(--muted);margin:6px 0 0" data-de>Gerne erläutere ich das Datenmodell, den UML-Entwurfsprozess oder die rollenbasierte Zugriffslogik.</p></div>
+<div><a class="btn ghost" href="mailto:ar.lezghed@gmail.com"><span data-en>Get in touch</span><span data-de>Kontakt aufnehmen</span></a></div>
+</div></div>
+<footer><div class="wrap">© Abdelrahim Lezghed — Badji Mokhtar University, Annaba, 2019–2020</div></footer>
+<script>
+function setLang(lang){
+ document.documentElement.lang=lang;
+ document.querySelectorAll('[data-en]').forEach(x=>x.style.display=lang==='en'?'inline':'none');
+ document.querySelectorAll('[data-de]').forEach(x=>x.style.display=lang==='de'?'inline':'none');
+ document.getElementById('enBtn').classList.toggle('active',lang==='en');
+ document.getElementById('deBtn').classList.toggle('active',lang==='de');
+}
+setLang('en');
+</script></body></html>

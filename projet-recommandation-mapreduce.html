@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Multicriteria Recommendation System — Abdelrahim Lezghed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+<style>
+:root{--bg:#070b10;--card:#0e171f;--text:#edf5f7;--muted:#9aaab6;--line:#1d2b36;--green:#35e0a1;--blue:#55a7ff;--max:920px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 80% 0%,#123326 0,transparent 30%),var(--bg);color:var(--text);font-family:Inter,sans-serif;line-height:1.6}
+a{text-decoration:none;color:inherit}.wrap{max-width:var(--max);margin:auto;padding:0 28px}.mono{font-family:"JetBrains Mono",monospace}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(7,11,16,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:64px}
+.brand{font:600 13px "JetBrains Mono",monospace;color:var(--muted)}.brand strong{color:var(--text)}
+.back{font-size:13px;color:var(--muted);border:1px solid var(--line);padding:7px 13px;border-radius:8px}.back:hover{border-color:var(--green);color:var(--green)}
+.lang{display:flex;gap:5px}.lang button{cursor:pointer;border:1px solid var(--line);background:#0d151c;color:#aebbc4;border-radius:8px;padding:6px 10px;font-weight:800;font-size:13px}.lang button.active{background:var(--green);color:#06110d;border-color:var(--green)}
+.hero{padding:64px 0 48px;border-bottom:1px solid var(--line)}
+.hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:start}
+@media(max-width:800px){.hero-grid{grid-template-columns:1fr}}
+.kicker{font:600 12px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+h1{font-size:clamp(30px,4.2vw,44px);line-height:1.15;margin:0 0 18px;letter-spacing:-.03em;font-weight:800}
+.lede{color:var(--muted);font-size:17px;max-width:54ch;margin:0 0 26px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}.tag{font:12px "JetBrains Mono",monospace;color:#b7c5cc;border:1px solid #263743;padding:5px 10px;border-radius:999px}
+.titleblock{border:1px solid var(--line);background:var(--card);border-radius:14px;font:12.5px "JetBrains Mono",monospace;overflow:hidden}
+.titleblock .row{display:flex;justify-content:space-between;padding:11px 15px;border-bottom:1px solid var(--line);gap:12px}
+.titleblock .row:last-child{border-bottom:none}.titleblock .k{color:#6c7684}.titleblock .v{color:var(--text);text-align:right}
+.pipeline{margin-top:36px}.pipeline-caption{font:11.5px "JetBrains Mono",monospace;color:var(--muted);margin-top:10px}
+section{padding:56px 0;border-bottom:1px solid var(--line)}section:last-of-type{border-bottom:none}
+.section-head{display:grid;grid-template-columns:140px 1fr;gap:24px;margin-bottom:28px}
+@media(max-width:700px){.section-head{grid-template-columns:1fr}}
+.index-lbl{font:12px "JetBrains Mono",monospace;color:var(--muted);padding-top:6px}
+h2{font-size:24px;margin:0;font-weight:700;letter-spacing:-.02em}
+.section-body{max-width:64ch}.section-body p{color:var(--muted)}
+.problem{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--green);border-radius:0 12px 12px 0;padding:22px 24px;margin-top:6px}
+.problem p{margin:0;color:var(--muted)}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin-top:6px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+@media(max-width:700px){.features{grid-template-columns:1fr}}
+.feature{background:var(--card);padding:20px 22px}.feature h3{font-size:15px;margin:0 0 8px;font-weight:700}
+.feature p{font-size:14px;color:var(--muted);margin:0}.feature .role{font:11px "JetBrains Mono",monospace;color:var(--green);display:block;margin-bottom:8px;letter-spacing:.04em}
+.stack-table{width:100%;border-collapse:collapse;margin-top:6px;font-size:14px}
+.stack-table td{padding:12px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+.stack-table td:first-child{font-family:"JetBrains Mono",monospace;color:var(--green);width:150px;white-space:nowrap}
+.stack-table td:last-child{color:var(--muted)}
+.formula{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin:18px 0;font:14px "JetBrains Mono",monospace;color:var(--text);overflow-x:auto}
+.formula .desc{font-family:Inter,sans-serif;color:var(--muted);font-size:13px;margin-top:8px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:24px;border-radius:14px;overflow:hidden}
+@media(max-width:700px){.stats{grid-template-columns:1fr}}
+.stat{background:var(--card);padding:20px 22px}.stat .num{font:26px "JetBrains Mono",monospace;color:var(--green)}
+.stat .lbl{font-size:13px;color:var(--muted);margin-top:6px}
+.screenframe{border:1px solid var(--line);background:var(--card);margin-top:24px;overflow:hidden;border-radius:12px}
+.screenframe .chrome{display:flex;align-items:center;gap:6px;padding:8px 12px;border-bottom:1px solid var(--line)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.screenframe .cap{padding:10px 12px;font:12px "JetBrains Mono",monospace;color:var(--muted);border-top:1px solid var(--line)}
+.screenframe img{display:block;width:100%;height:auto;background:#fff}
+.shot-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:24px}
+@media(max-width:700px){.shot-grid{grid-template-columns:1fr}}.shot-grid .screenframe{margin-top:0}
+.results-table{width:100%;border-collapse:collapse;margin-top:18px;font:13px "JetBrains Mono",monospace}
+.results-table th{text-align:left;color:var(--muted);font-weight:400;border-bottom:1px solid var(--line);padding:8px 10px}
+.results-table td{padding:8px 10px;border-bottom:1px solid var(--line);color:var(--text)}.results-table .accent{color:var(--green)}
+.code-block{background:#050809;border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-top:18px;overflow-x:auto}
+.code-block .file-label{font:11px "JetBrains Mono",monospace;color:var(--muted);margin-bottom:10px}
+.code-block pre{margin:0}.code-block code.hljs{background:transparent!important;padding:0!important;font:12.5px/1.7 "JetBrains Mono",monospace!important}
+.cta{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:44px 0 60px;flex-wrap:wrap}
+.cta h2{font-size:20px}.btn{font:600 13px "JetBrains Mono",monospace;color:#06110d;background:var(--green);padding:12px 20px;border-radius:9px;display:inline-block}
+.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+footer{padding:24px 0 50px;font-size:12px;color:#71808b;font-family:"JetBrains Mono",monospace}
+[data-de]{display:none}
+</style></head><body>
+<div class="topbar"><div class="wrap">
+<div class="brand">PORTFOLIO / <strong><span data-en>Projects</span><span data-de>Projekte</span></strong></div>
+<div style="display:flex;gap:12px;align-items:center">
+<a class="back" href="index.html">← <span data-en>Back</span><span data-de>Zurück</span></a>
+<div class="lang"><button id="enBtn" onclick="setLang('en')">EN</button><button id="deBtn" onclick="setLang('de')">DE</button></div>
+</div></div></div>
+
+<div class="hero"><div class="wrap hero-grid">
+<div>
+<div class="kicker"><span data-en>MASTER'S THESIS PROJECT — BIG DATA</span><span data-de>MASTERARBEIT — BIG DATA</span></div>
+<h1><span data-en>Multicriteria item-based recommendation system with MapReduce</span><span data-de>Multikriterielles item-basiertes Empfehlungssystem mit MapReduce</span></h1>
+<p class="lede" data-en>A recommendation system that extends classic collaborative filtering to handle multiple rating criteria, implemented as a distributed MapReduce pipeline on Hadoop.</p>
+<p class="lede" data-de>Ein Empfehlungssystem, das klassisches kollaboratives Filtern um mehrere Bewertungskriterien erweitert, implementiert als verteilte MapReduce-Pipeline auf Hadoop.</p>
+<div class="tags"><span class="tag">Java</span><span class="tag">Hadoop</span><span class="tag">MapReduce</span><span class="tag">HDFS</span><span class="tag">Eclipse IDE</span><span class="tag">MovieLens</span></div>
+</div>
+<div class="titleblock">
+<div class="row"><span class="k"><span data-en>Institution</span><span data-de>Institution</span></span><span class="v">Badji Mokhtar University — Annaba</span></div>
+<div class="row"><span class="k"><span data-en>Program</span><span data-de>Studiengang</span></span><span class="v"><span data-en>Big Data Management & Analysis</span><span data-de>Management und Analyse von Big Data</span></span></div>
+<div class="row"><span class="k"><span data-en>Year</span><span data-de>Jahr</span></span><span class="v">2021 – 2022</span></div>
+<div class="row"><span class="k"><span data-en>Author</span><span data-de>Verfasser</span></span><span class="v">Abdelrahim Lezghed</span></div>
+<div class="row"><span class="k"><span data-en>Supervisor</span><span data-de>Betreuung</span></span><span class="v">Dr. Sihem Klaï</span></div>
+<div class="row"><span class="k"><span data-en>Dataset</span><span data-de>Datensatz</span></span><span class="v">MovieLens — 610 <span data-en>users</span><span data-de>Nutzer</span></span></div>
+<div class="row"><span class="k"><span data-en>Based on</span><span data-de>Basierend auf</span></span><span class="v">Shen & Chen (2020)</span></div>
+</div>
+</div>
+</div>
+
+<div class="wrap"><div class="pipeline">
+<svg viewBox="0 0 1000 190" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="font-family:'JetBrains Mono',monospace;">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5C6690"/></marker></defs>
+<text x="0" y="20" fill="#9AA5C4" font-size="12" data-en="Raw data" data-de="Rohdaten">Raw data</text>
+<line x1="0" y1="90" x2="70" y2="90" stroke="#5C6690" stroke-width="1.5" marker-end="url(#arrow)"/>
+<g><rect x="80" y="55" width="140" height="70" fill="#0e171f" stroke="#1d2b36"/><rect x="80" y="55" width="140" height="4" fill="#35e0a1"/>
+<text x="150" y="88" fill="#edf5f7" font-size="13" text-anchor="middle" font-weight="600">JOB 1</text>
+<text x="150" y="106" fill="#9aaab6" font-size="10.5" text-anchor="middle"><tspan data-en="true">Data splitter</tspan></text></g>
+<line x1="220" y1="90" x2="270" y2="90" stroke="#5C6690" stroke-width="1.5" marker-end="url(#arrow)"/>
+<g><rect x="280" y="55" width="140" height="70" fill="#0e171f" stroke="#1d2b36"/><rect x="280" y="55" width="140" height="4" fill="#35e0a1"/>
+<text x="350" y="82" fill="#edf5f7" font-size="13" text-anchor="middle" font-weight="600">JOB 2</text>
+<text x="350" y="100" fill="#9aaab6" font-size="10.5" text-anchor="middle">Co-occurrence</text>
+<text x="350" y="113" fill="#9aaab6" font-size="10.5" text-anchor="middle">matrix</text></g>
+<line x1="420" y1="90" x2="470" y2="90" stroke="#5C6690" stroke-width="1.5" marker-end="url(#arrow)"/>
+<g><rect x="480" y="55" width="140" height="70" fill="#0e171f" stroke="#1d2b36"/><rect x="480" y="55" width="140" height="4" fill="#35e0a1"/>
+<text x="550" y="88" fill="#edf5f7" font-size="13" text-anchor="middle" font-weight="600">JOB 3</text>
+<text x="550" y="106" fill="#9aaab6" font-size="10.5" text-anchor="middle">Normalization</text></g>
+<line x1="620" y1="90" x2="670" y2="90" stroke="#5C6690" stroke-width="1.5" marker-end="url(#arrow)"/>
+<g><rect x="680" y="55" width="140" height="70" fill="#0e171f" stroke="#1d2b36"/><rect x="680" y="55" width="140" height="4" fill="#35e0a1"/>
+<text x="750" y="88" fill="#edf5f7" font-size="13" text-anchor="middle" font-weight="600">JOB 4</text>
+<text x="750" y="106" fill="#9aaab6" font-size="10.5" text-anchor="middle">Multiplication</text></g>
+<line x1="820" y1="90" x2="870" y2="90" stroke="#5C6690" stroke-width="1.5" marker-end="url(#arrow)"/>
+<g><rect x="880" y="55" width="120" height="70" fill="#0e171f" stroke="#35e0a1" stroke-width="1.5"/>
+<text x="940" y="88" fill="#35e0a1" font-size="13" text-anchor="middle" font-weight="600">JOB 5</text>
+<text x="940" y="106" fill="#9aaab6" font-size="10.5" text-anchor="middle">Sum</text></g>
+</svg>
+<div class="pipeline-caption"><span data-en>Pipeline of the 5 MapReduce jobs implementing item-based collaborative filtering on Hadoop.</span><span data-de>Pipeline der 5 MapReduce-Jobs zur Umsetzung des item-basierten kollaborativen Filterns auf Hadoop.</span></div>
+</div></div>
+
+<section id="contexte"><div class="wrap">
+<div class="section-head"><div class="index-lbl">01 — <span data-en>Context</span><span data-de>Kontext</span></div><h2><span data-en>The problem</span><span data-de>Das Problem</span></h2></div>
+<div class="section-body">
+<p data-en>Collaborative filtering recommendation systems face a scalability problem: as the number of users and items grows, computing similarities and generating recommendations on a single machine becomes too slow and resource-heavy.</p>
+<p data-de>Empfehlungssysteme mit kollaborativem Filtern stoßen an Skalierungsgrenzen: Mit wachsender Nutzer- und Item-Zahl wird die Berechnung von Ähnlichkeiten und Empfehlungen auf einer einzelnen Maschine zu langsam und ressourcenintensiv.</p>
+<div class="problem">
+<p data-en>Most classic systems also rely on a single overall rating per item, whereas rating on several criteria (e.g. plot, acting, direction) would allow more precise recommendations — provided the extra data volume can be processed efficiently.</p>
+<p data-de>Zudem stützen sich klassische Systeme meist auf eine einzige Gesamtbewertung pro Item, während eine mehrkriterielle Bewertung (z. B. Handlung, Schauspiel, Regie) präzisere Empfehlungen ermöglichen würde — sofern das zusätzliche Datenvolumen effizient verarbeitet werden kann.</p>
+</div></div></div></section>
+
+<section id="approche"><div class="wrap">
+<div class="section-head"><div class="index-lbl">02 — <span data-en>Approach</span><span data-de>Ansatz</span></div><h2><span data-en>Item-based collaborative filtering, at scale</span><span data-de>Item-basiertes kollaboratives Filtern, skaliert</span></h2></div>
+<div class="section-body">
+<p data-en>The project reproduces the item-based collaborative filtering + MapReduce model published by Shen & Chen (2020) as a suite of 5 Hadoop jobs, then extends Job 1: instead of using a single rating per item, it averages three per-criterion ratings (e.g. plot, acting, direction) into one score before the pipeline runs — the model's own multicriteria extension.</p>
+<p data-de>Das Projekt reproduziert das von Shen & Chen (2020) veröffentlichte Modell für item-basiertes kollaboratives Filtern mit MapReduce als Folge von 5 Hadoop-Jobs und erweitert anschließend Job 1: Statt einer einzigen Bewertung pro Item werden drei Kriterienbewertungen (z. B. Handlung, Schauspiel, Regie) vor dem Pipeline-Lauf zu einem Wert gemittelt — die eigene Mehrkriterien-Erweiterung des Modells.</p>
+</div>
+<div class="formula">w<sub>ij</sub> = |N(i) ∩ N(j)| / √(|N(i)| · |N(j)|)
+<div class="desc"><span data-en>Similarity between two items i and j, based on the number of users who rated both.</span><span data-de>Ähnlichkeit zwischen zwei Items i und j, basierend auf der Anzahl der Nutzer, die beide bewertet haben.</span></div></div>
+<div class="features">
+<div class="feature"><span class="role"><span data-en>CONTRIBUTION</span><span data-de>BEITRAG</span></span><h3><span data-en>Multicriteria extension</span><span data-de>Mehrkriterien-Erweiterung</span></h3><p data-en>Job 1 is extended to aggregate several per-criterion ratings (acting, plot, direction...) into a single average rating before the pipeline runs.</p><p data-de>Job 1 wird erweitert, um mehrere Kriterienbewertungen (Schauspiel, Handlung, Regie...) vor dem Pipeline-Lauf zu einer einzigen Durchschnittsbewertung zusammenzufassen.</p></div>
+<div class="feature"><span class="role"><span data-en>DISTRIBUTION</span><span data-de>VERTEILUNG</span></span><h3><span data-en>5 MapReduce jobs</span><span data-de>5 MapReduce-Jobs</span></h3><p data-en>Data splitting, co-occurrence matrix, normalization, multiplication and sum — each step distributed across the Hadoop cluster.</p><p data-de>Datenaufteilung, Kookkurrenzmatrix, Normalisierung, Multiplikation und Summe — jeder Schritt auf dem Hadoop-Cluster verteilt.</p></div>
+<div class="feature"><span class="role"><span data-en>STORAGE</span><span data-de>SPEICHERUNG</span></span><h3>HDFS</h3><p data-en>Data and intermediate results pass through Hadoop's distributed file system between each job.</p><p data-de>Daten und Zwischenergebnisse werden zwischen den Jobs über Hadoops verteiltes Dateisystem geleitet.</p></div>
+<div class="feature"><span class="role"><span data-en>EVALUATION</span><span data-de>EVALUATION</span></span><h3><span data-en>RMSE error</span><span data-de>RMSE-Fehler</span></h3><p data-en>Prediction accuracy is measured by comparing actual and predicted ratings on a sample of test users.</p><p data-de>Die Vorhersagegenauigkeit wird durch den Vergleich von tatsächlicher und vorhergesagter Bewertung an einer Test-Nutzerstichprobe gemessen.</p></div>
+</div></div></section>
+
+<section id="experimentation"><div class="wrap">
+<div class="section-head"><div class="index-lbl">03 — <span data-en>Experiment</span><span data-de>Experiment</span></div><h2><span data-en>Dataset & execution</span><span data-de>Datensatz & Ausführung</span></h2></div>
+<div class="section-body"><p data-en>The system was tested on the MovieLens dataset, which records movie ratings on a 5-star scale.</p><p data-de>Das System wurde mit dem MovieLens-Datensatz getestet, der Filmbewertungen auf einer 5-Sterne-Skala erfasst.</p></div>
+<div class="stats">
+<div class="stat"><div class="num">610</div><div class="lbl"><span data-en>randomly selected users (min. 20 rated movies each)</span><span data-de>zufällig ausgewählte Nutzer (mind. 20 bewertete Filme je Nutzer)</span></div></div>
+<div class="stat"><div class="num">93.7%</div><div class="lbl"><span data-en>missing ratings in the user × item matrix</span><span data-de>fehlende Bewertungen in der Nutzer-×-Item-Matrix</span></div></div>
+<div class="stat"><div class="num">1996–2018</div><div class="lbl"><span data-en>rating collection period</span><span data-de>Erfassungszeitraum der Bewertungen</span></div></div>
+</div>
+<div class="screenframe"><div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+<img src="images-recommandation/terminal-commandes.png" alt="Hadoop pipeline execution commands">
+<div class="cap"><span data-en>Launching the pipeline via HDFS commands (start-yarn, start-dfs, hadoop fs, running the .jar)</span><span data-de>Start der Pipeline über HDFS-Befehle (start-yarn, start-dfs, hadoop fs, Ausführung der .jar-Datei)</span></div></div>
+<div class="shot-grid">
+<div class="screenframe"><div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+<img src="images-recommandation/matrice-evaluation.png" alt="User-item evaluation matrix"><div class="cap"><span data-en>Excerpt of the generated evaluation matrix (Job 1 → Job 2)</span><span data-de>Ausschnitt der generierten Bewertungsmatrix (Job 1 → Job 2)</span></div></div>
+<div class="screenframe"><div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+<img src="images-recommandation/resultats-recommandation.png" alt="Final recommendation result"><div class="cap"><span data-en>Fragment of the final recommendation output (Job 5)</span><span data-de>Ausschnitt des finalen Empfehlungsergebnisses (Job 5)</span></div></div>
+</div>
+<table class="results-table">
+<tr><th><span data-en>User</span><span data-de>Nutzer</span></th><th><span data-en>Actual rating</span><span data-de>Tatsächliche Bewertung</span></th><th><span data-en>Predicted rating</span><span data-de>Vorhergesagte Bewertung</span></th><th>RMSE</th></tr>
+<tr><td>1488844</td><td>3</td><td class="accent">3</td><td>1.285</td></tr>
+<tr><td>1488844</td><td>4</td><td class="accent">3.9</td><td>1.730</td></tr>
+</table>
+</div></section>
+
+<section id="code"><div class="wrap">
+<div class="section-head"><div class="index-lbl">04 — <span data-en>Code</span><span data-de>Code</span></div><h2><span data-en>The Mapper / Reducer pattern</span><span data-de>Das Mapper/Reducer-Muster</span></h2></div>
+<div class="section-body"><p data-en>Each of the 5 pipeline jobs follows the same MapReduce pattern. Below is a simplified version (word count) illustrating the Mapper/Reducer structure reused to build each step of the recommendation system.</p>
+<p data-de>Jeder der 5 Pipeline-Jobs folgt demselben MapReduce-Muster. Es folgt eine vereinfachte Version (Wortzählung), die die für jeden Schritt des Empfehlungssystems wiederverwendete Mapper/Reducer-Struktur veranschaulicht.</p></div>
+<div class="code-block"><div class="file-label">WordMapper.java</div><pre><code class="language-java">public class WordMapper extends Mapper&lt;LongWritable, Text, Text, IntWritable&gt; {
+    private final static IntWritable one = new IntWritable(1);
+    private Text word = new Text();
+
+    public void map(LongWritable key, Text value, Context context) {
+        StringTokenizer itr = new StringTokenizer(value.toString());
+        while (itr.hasMoreTokens()) {
+            word.set(itr.nextToken());
+            context.write(word, one);
+        }
+    }
+}</code></pre></div>
+<div class="code-block"><div class="file-label">WordReducer.java</div><pre><code class="language-java">public class WordReducer extends Reducer&lt;Text, IntWritable, Text, IntWritable&gt; {
+
+    public void reduce(Text key, Iterable&lt;IntWritable&gt; values, Context context) {
+        int sum = 0;
+        for (IntWritable value : values) {
+            sum += value.get();
+        }
+        context.write(key, new IntWritable(sum));
+    }
+}</code></pre></div>
+</div></section>
+
+<section id="stack"><div class="wrap">
+<div class="section-head"><div class="index-lbl">05 — <span data-en>Stack</span><span data-de>Stack</span></div><h2><span data-en>Tools used</span><span data-de>Verwendete Werkzeuge</span></h2></div>
+<table class="stack-table">
+<tr><td><span data-en>Language</span><span data-de>Sprache</span></td><td>Java 1.8.0</td></tr>
+<tr><td><span data-en>Processing</span><span data-de>Verarbeitung</span></td><td>Hadoop MapReduce 3.3.1</td></tr>
+<tr><td><span data-en>Storage</span><span data-de>Speicherung</span></td><td>HDFS</td></tr>
+<tr><td><span data-en>Environment</span><span data-de>Umgebung</span></td><td>Eclipse IDE (Java Developers, 2019.09)</td></tr>
+<tr><td><span data-en>Dataset</span><span data-de>Datensatz</span></td><td>MovieLens</td></tr>
+<tr><td><span data-en>Target system</span><span data-de>Zielsystem</span></td><td><span data-en>Windows 10 — Dell i5 vPro, 8 GB RAM</span><span data-de>Windows 10 — Dell i5 vPro, 8 GB RAM</span></td></tr>
+<tr><td><span data-en>Reference model</span><span data-de>Referenzmodell</span></td><td>Shen, J. & Chen, L. (2020), <span data-en>Int. J. Computational Science and Engineering</span><span data-de>Int. J. Computational Science and Engineering</span></td></tr>
+</table>
+</div></section>
+
+<div class="wrap"><div class="cta">
+<div><h2><span data-en>Want to see the full report?</span><span data-de>Interesse am vollständigen Bericht?</span></h2>
+<p style="color:var(--muted);margin:6px 0 0" data-en>State of the art of recommendation systems, detail of the multicriteria model and full evaluation.</p>
+<p style="color:var(--muted);margin:6px 0 0" data-de>Stand der Forschung zu Empfehlungssystemen, Detailbeschreibung des Mehrkriterienmodells und vollständige Evaluation.</p></div>
+<div><a class="btn ghost" href="Lezghed_abdelrahim_gadm_V3.docx"><span data-en>View thesis (Word)</span><span data-de>Arbeit ansehen (Word)</span></a></div>
+</div></div>
+<footer><div class="wrap">© Abdelrahim Lezghed — Badji Mokhtar University, Annaba, 2021–2022</div></footer>
+<script>
+hljs.highlightAll();
+function setLang(lang){
+ document.documentElement.lang=lang;
+ document.querySelectorAll('[data-en]').forEach(x=>x.style.display=lang==='en'?'inline':'none');
+ document.querySelectorAll('[data-de]').forEach(x=>x.style.display=lang==='de'?'inline':'none');
+ document.getElementById('enBtn').classList.toggle('active',lang==='en');
+ document.getElementById('deBtn').classList.toggle('active',lang==='de');
+}
+setLang('en');
+</script></body></html>

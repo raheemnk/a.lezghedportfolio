@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MCP Data Server — Abdelrahim Lezghed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+<style>
+:root{--bg:#070b10;--card:#0e171f;--text:#edf5f7;--muted:#9aaab6;--line:#1d2b36;--green:#35e0a1;--blue:#55a7ff;--max:920px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 80% 0%,#123326 0,transparent 30%),var(--bg);color:var(--text);font-family:Inter,sans-serif;line-height:1.6}
+a{text-decoration:none;color:inherit}.wrap{max-width:var(--max);margin:auto;padding:0 28px}.mono{font-family:"JetBrains Mono",monospace}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(7,11,16,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:64px}
+.brand{font:600 13px "JetBrains Mono",monospace;color:var(--muted)}.brand strong{color:var(--text)}
+.back{font-size:13px;color:var(--muted);border:1px solid var(--line);padding:7px 13px;border-radius:8px}.back:hover{border-color:var(--green);color:var(--green)}
+.lang{display:flex;gap:5px}.lang button{cursor:pointer;border:1px solid var(--line);background:#0d151c;color:#aebbc4;border-radius:8px;padding:6px 10px;font-weight:800;font-size:13px}.lang button.active{background:var(--green);color:#06110d;border-color:var(--green)}
+.hero{padding:64px 0 48px;border-bottom:1px solid var(--line)}
+.hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:start}
+@media(max-width:800px){.hero-grid{grid-template-columns:1fr}}
+.kicker{font:600 12px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+h1{font-size:clamp(28px,4vw,42px);line-height:1.15;margin:0 0 18px;letter-spacing:-.03em;font-weight:800}
+.lede{color:var(--muted);font-size:17px;max-width:56ch;margin:0 0 26px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}.tag{font:12px "JetBrains Mono",monospace;color:#b7c5cc;border:1px solid #263743;padding:5px 10px;border-radius:999px}
+.titleblock{border:1px solid var(--line);background:var(--card);border-radius:14px;font:12.5px "JetBrains Mono",monospace;overflow:hidden}
+.titleblock .row{display:flex;justify-content:space-between;padding:11px 15px;border-bottom:1px solid var(--line);gap:12px}
+.titleblock .row:last-child{border-bottom:none}.titleblock .k{color:#6c7684}.titleblock .v{color:var(--text);text-align:right;max-width:60%}
+section{padding:56px 0;border-bottom:1px solid var(--line)}section:last-of-type{border-bottom:none}
+.section-head{display:grid;grid-template-columns:140px 1fr;gap:24px;margin-bottom:28px}
+@media(max-width:700px){.section-head{grid-template-columns:1fr}}
+.index-lbl{font:12px "JetBrains Mono",monospace;color:var(--muted);padding-top:6px}
+h2{font-size:24px;margin:0;font-weight:700;letter-spacing:-.02em}
+.section-body{max-width:66ch}.section-body p{color:var(--muted)}
+.problem{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--green);border-radius:0 12px 12px 0;padding:22px 24px;margin-top:6px}
+.problem p{margin:0;color:var(--muted)}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin-top:6px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.features.single{grid-template-columns:1fr}
+@media(max-width:700px){.features{grid-template-columns:1fr}}
+.feature{background:var(--card);padding:20px 22px}.feature h3{font-size:15px;margin:0 0 8px;font-weight:700}
+.feature p{font-size:14px;color:var(--muted);margin:0}.feature .role{font:11px "JetBrains Mono",monospace;color:var(--green);display:block;margin-bottom:8px;letter-spacing:.04em}
+.stack-table{width:100%;border-collapse:collapse;margin-top:6px;font-size:14px}
+.stack-table td{padding:12px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+.stack-table td:first-child{font-family:"JetBrains Mono",monospace;color:var(--green);width:170px;white-space:nowrap}
+.stack-table td:last-child{color:var(--muted)}
+.arch{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;margin-top:24px}
+.arch-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font:12.5px "JetBrains Mono",monospace;color:var(--muted)}
+.arch-box{border:1px solid var(--line);background:#0d151c;border-radius:8px;padding:9px 13px;color:var(--text)}
+.arch-arrow{color:var(--green)}
+.diagrams{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.diagram-chip{border:1px solid var(--line);padding:10px 14px;font-size:13px;color:var(--muted);border-radius:8px;background:var(--card);max-width:230px}
+.diagram-chip b{color:var(--text);font-weight:600;display:block;margin-bottom:2px}
+.code-block{background:#050809;border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-top:18px;overflow-x:auto}
+.code-block .file-label{font:11px "JetBrains Mono",monospace;color:var(--muted);margin-bottom:10px}
+.code-block pre{margin:0}.code-block code.hljs{background:transparent!important;padding:0!important;font:12.5px/1.7 "JetBrains Mono",monospace!important}
+.limits{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.limits li{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px;color:var(--muted);font-size:14.5px}
+.limits li b{color:var(--text)}
+.transcript{background:#050809;border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-top:18px;font:12.5px/1.75 "JetBrains Mono",monospace;overflow-x:auto;color:#c7d0e8}
+.transcript .u{color:var(--blue)}.transcript .a{color:var(--green)}.transcript .r{color:#e88}
+.cta{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:44px 0 60px;flex-wrap:wrap}
+.cta h2{font-size:20px}.btn.ghost{font:600 13px "JetBrains Mono",monospace;background:transparent;color:var(--muted);border:1px solid var(--line);padding:12px 20px;border-radius:9px;display:inline-block}
+footer{padding:24px 0 50px;font-size:12px;color:#71808b;font-family:"JetBrains Mono",monospace}
+[data-de]{display:none}
+</style></head><body>
+<div class="topbar"><div class="wrap">
+<div class="brand">PORTFOLIO / <strong><span data-en>Projects</span><span data-de>Projekte</span></strong></div>
+<div style="display:flex;gap:12px;align-items:center">
+<a class="back" href="index.html">← <span data-en>Back</span><span data-de>Zurück</span></a>
+<div class="lang"><button id="enBtn" onclick="setLang('en')">EN</button><button id="deBtn" onclick="setLang('de')">DE</button></div>
+</div></div></div>
+
+<div class="hero"><div class="wrap hero-grid">
+<div>
+<div class="kicker"><span data-en>PERSONAL PROJECT — AI TOOLING / DATA SECURITY</span><span data-de>PERSÖNLICHES PROJEKT — KI-TOOLING / DATENSICHERHEIT</span></div>
+<h1><span data-en>MCP Data Server — read-only PostgreSQL for AI agents</span><span data-de>MCP-Datenserver — schreibgeschützter PostgreSQL-Zugriff für KI-Agenten</span></h1>
+<p class="lede" data-en>A Model Context Protocol server that exposes a PostgreSQL database to an AI agent strictly read-only, protected by three independent security layers and a full audit trail — built to answer a simple question: how do you let an agent explore real data without ever trusting it not to break something?</p>
+<p class="lede" data-de>Ein Model-Context-Protocol-Server, der einer KI eine PostgreSQL-Datenbank strikt schreibgeschützt zur Verfügung stellt, abgesichert durch drei unabhängige Sicherheitsebenen und ein vollständiges Audit-Log — gebaut, um eine einfache Frage zu beantworten: Wie lässt man einen Agenten echte Daten erkunden, ohne ihm je zu vertrauen, nichts kaputtzumachen?</p>
+<div class="tags"><span class="tag">Python</span><span class="tag">MCP Protocol</span><span class="tag">PostgreSQL</span><span class="tag">Security</span><span class="tag">pytest</span><span class="tag">Docker</span></div>
+</div>
+<div class="titleblock">
+<div class="row"><span class="k"><span data-en>Type</span><span data-de>Typ</span></span><span class="v"><span data-en>Personal project</span><span data-de>Persönliches Projekt</span></span></div>
+<div class="row"><span class="k"><span data-en>Year</span><span data-de>Jahr</span></span><span class="v">2026</span></div>
+<div class="row"><span class="k"><span data-en>Scale</span><span data-de>Umfang</span></span><span class="v"><span data-en>~1,160 lines Python</span><span data-de>~1.160 Zeilen Python</span></span></div>
+<div class="row"><span class="k"><span data-en>Tools exposed</span><span data-de>Bereitgestellte Tools</span></span><span class="v">5</span></div>
+<div class="row"><span class="k"><span data-en>Status</span><span data-de>Status</span></span><span class="v"><span data-en>Functional, tested (unit + DB + real MCP protocol), CI</span><span data-de>Funktionsfähig, getestet (Unit + DB + echtes MCP-Protokoll), CI</span></span></div>
+</div>
+</div></div>
+
+<section id="problem"><div class="wrap">
+<div class="section-head"><div class="index-lbl">01 — <span data-en>Problem</span><span data-de>Problem</span></div><h2><span data-en>Trusting an agent isn't a security model</span><span data-de>Einem Agenten zu vertrauen ist kein Sicherheitsmodell</span></h2></div>
+<div class="section-body">
+<p data-en>Giving an AI agent direct database access is useful — it can explore schemas, profile tables, answer ad-hoc questions — but "the agent will only run safe queries" is not a security guarantee, whether the risk is a bad instruction, a prompt injection, or the model simply making a mistake. The access layer itself has to make unsafe actions structurally impossible, not just unlikely.</p>
+<p data-de>Einem KI-Agenten direkten Datenbankzugriff zu geben ist nützlich — er kann Schemas erkunden, Tabellen profilieren, Ad-hoc-Fragen beantworten — aber "der Agent wird schon nur sichere Abfragen ausführen" ist keine Sicherheitsgarantie, egal ob das Risiko eine schlechte Anweisung, eine Prompt Injection oder ein schlichter Modellfehler ist. Die Zugriffsschicht selbst muss unsichere Aktionen strukturell unmöglich machen, nicht nur unwahrscheinlich.</p>
+<div class="problem">
+<p data-en><b>Goal:</b> an MCP server giving an agent genuinely useful read access — schema exploration, table profiling, ad-hoc SELECT queries — while making every write path fail at more than one independent layer, even if an earlier layer has a bug.</p>
+<p data-de><b>Ziel:</b> ein MCP-Server, der einem Agenten echten, nützlichen Lesezugriff gibt — Schema-Exploration, Tabellenprofilierung, Ad-hoc-SELECT-Abfragen — während jeder Schreibpfad auf mehr als einer unabhängigen Ebene fehlschlägt, selbst wenn eine frühere Ebene einen Fehler hat.</p>
+</div></div></div></section>
+
+<section id="architecture"><div class="wrap">
+<div class="section-head"><div class="index-lbl">02 — <span data-en>Architecture</span><span data-de>Architektur</span></div><h2><span data-en>5 tools, 3 resources, 3 security layers</span><span data-de>5 Tools, 3 Resources, 3 Sicherheitsebenen</span></h2></div>
+<div class="section-body"><p data-en>Built with FastMCP over stdio/JSON-RPC. Every tool call passes through the SQL guard and gets logged, before ever reaching PostgreSQL through a role that physically cannot write.</p>
+<p data-de>Gebaut mit FastMCP über stdio/JSON-RPC. Jeder Tool-Aufruf durchläuft den SQL Guard und wird protokolliert, bevor er PostgreSQL überhaupt über eine Rolle erreicht, die physisch nicht schreiben kann.</p></div>
+<div class="diagrams">
+<div class="diagram-chip"><b><span data-en>Tools (5)</span><span data-de>Tools (5)</span></b>list_tables, describe_table, get_table_stats, profile_table, execute_readonly_query</div>
+<div class="diagram-chip"><b><span data-en>Resources (3)</span><span data-de>Resources (3)</span></b>schema://database, schema://{table}, documentation://data-dictionary</div>
+<div class="diagram-chip"><b><span data-en>Security (3 layers)</span><span data-de>Security (3 Ebenen)</span></b><span data-en>SQL guard, DB role, limits/timeout</span><span data-de>SQL Guard, DB-Rolle, Limits/Timeout</span></div>
+<div class="diagram-chip"><b><span data-en>Audit</span><span data-de>Audit</span></b><span data-en>append-only JSONL, local, un-writable by the DB role</span><span data-de>Append-only JSONL, lokal, von der DB-Rolle nicht schreibbar</span></div>
+</div>
+<div class="arch">
+<div class="arch-row">
+<span class="arch-box">Claude / <span data-en>AI client</span><span data-de>KI-Client</span></span>
+<span class="arch-arrow">→</span>
+<span class="arch-box">MCP <span data-en>client</span><span data-de>Client</span></span>
+<span class="arch-arrow">→</span>
+<span class="arch-box"><span data-en>MCP Data Server</span><span data-de>MCP-Datenserver</span> <span data-en>(tools + guard + audit)</span><span data-de>(Tools + Guard + Audit)</span></span>
+<span class="arch-arrow">→</span>
+<span class="arch-box">PostgreSQL <span data-en>(SELECT only)</span><span data-de>(nur SELECT)</span></span>
+</div>
+</div>
+</div></section>
+
+<section id="decisions"><div class="wrap">
+<div class="section-head"><div class="index-lbl">03 — <span data-en>Key decisions</span><span data-de>Zentrale Entscheidungen</span></div><h2><span data-en>Technical choices, and why</span><span data-de>Technische Entscheidungen — und warum</span></h2></div>
+<div class="features single">
+<div class="feature"><span class="role"><span data-en>01 — DEFENSE IN DEPTH</span><span data-de>01 — DEFENSE IN DEPTH</span></span><h3><span data-en>Three independent layers, each sufficient alone</span><span data-de>Drei unabhängige Ebenen, jede für sich ausreichend</span></h3><p data-en>An application-level SQL guard, a PostgreSQL role with literal SELECT-only grants, and enforced limits/timeouts. None of the three depends on the others being correct.</p><p data-de>Ein SQL Guard auf Anwendungsebene, eine PostgreSQL-Rolle mit ausschließlich SELECT-Rechten und erzwungene Limits/Timeouts. Keine der drei Ebenen hängt davon ab, dass die anderen korrekt sind.</p></div>
+<div class="feature"><span class="role"><span data-en>02 — FULL TOKEN SCAN</span><span data-de>02 — VOLLSTÄNDIGER TOKEN-SCAN</span></span><h3><span data-en>Not just the first keyword</span><span data-de>Nicht nur das erste Schlüsselwort</span></h3><p data-en>A query starting with <code>WITH</code> looks like a harmless SELECT if you only check the first word — but PostgreSQL allows data-modifying CTEs, so a <code>DELETE</code> hidden inside one would actually execute. The guard tokenizes the entire query tree with <code>sqlparse</code> and rejects a forbidden keyword anywhere in it.</p><p data-de>Eine mit <code>WITH</code> beginnende Abfrage sieht wie ein harmloses SELECT aus, wenn man nur das erste Wort prüft — aber PostgreSQL erlaubt datenverändernde CTEs, sodass ein darin verstecktes <code>DELETE</code> tatsächlich ausgeführt würde. Der Guard tokenisiert den gesamten Abfragebaum mit <code>sqlparse</code> und lehnt ein verbotenes Schlüsselwort an jeder Stelle ab.</p></div>
+<div class="feature"><span class="role"><span data-en>03 — DB-LEVEL AS THE REAL GUARANTEE</span><span data-de>03 — DB-EBENE ALS ECHTE GARANTIE</span></span><h3><span data-en>The guard is a courtesy, the role is the guarantee</span><span data-de>Der Guard ist eine Höflichkeit, die Rolle ist die Garantie</span></h3><p data-en><code>mcp_readonly_user</code> holds only <code>SELECT</code> at the database engine level. Even if the SQL guard had a bug, PostgreSQL itself refuses any write with <code>permission denied</code> — verified, not assumed.</p><p data-de><code>mcp_readonly_user</code> besitzt auf Datenbankebene ausschließlich <code>SELECT</code>. Selbst bei einem Fehler im SQL Guard verweigert PostgreSQL selbst jeden Schreibversuch mit <code>permission denied</code> — verifiziert, nicht angenommen.</p></div>
+<div class="feature"><span class="role"><span data-en>04 — LIMITS THAT CAN'T BE BYPASSED FROM INSIDE</span><span data-de>04 — VON INNEN NICHT UMGEHBARE LIMITS</span></span><h3><span data-en>Query wrapping, not query trust</span><span data-de>Abfrage-Wrapping statt Abfrage-Vertrauen</span></h3><p data-en>The user's query is wrapped inside an enclosing <code>SELECT ... LIMIT n</code>, so an internal <code>LIMIT 999999999</code> is simply ignored. <code>statement_timeout</code> (5s default) is set both at the transaction level and on the role itself — tested with <code>SELECT pg_sleep(10)</code>, cut off at 5s as expected.</p><p data-de>Die Nutzerabfrage wird in ein umschließendes <code>SELECT ... LIMIT n</code> gepackt, sodass ein internes <code>LIMIT 999999999</code> schlicht ignoriert wird. <code>statement_timeout</code> (Standard 5s) wird sowohl auf Transaktionsebene als auch auf der Rolle selbst gesetzt — getestet mit <code>SELECT pg_sleep(10)</code>, wie erwartet nach 5s abgebrochen.</p></div>
+<div class="feature"><span class="role"><span data-en>05 — TAMPER-PROOF AUDIT LOG</span><span data-de>05 — MANIPULATIONSSICHERES AUDIT-LOG</span></span><h3><span data-en>Local by necessity, not by convenience</span><span data-de>Lokal aus Notwendigkeit, nicht aus Bequemlichkeit</span></h3><p data-en>Every tool call is journaled to an append-only JSONL file. It lives outside the database on purpose: <code>mcp_readonly_user</code> couldn't write to the database even if it wanted to — which means no SQL injection could ever alter the audit trail.</p><p data-de>Jeder Tool-Aufruf wird in eine Append-only-JSONL-Datei journalt. Sie liegt absichtlich außerhalb der Datenbank: <code>mcp_readonly_user</code> könnte selbst dann nicht in die Datenbank schreiben, wenn er wollte — sodass keine SQL-Injection je das Audit-Log verändern könnte.</p></div>
+</div></div></section>
+
+<section id="different"><div class="wrap">
+<div class="section-head"><div class="index-lbl">04 — <span data-en>Proof, not a promise</span><span data-de>Beweis statt Versprechen</span></div><h2><span data-en>A live security demonstration</span><span data-de>Eine Live-Sicherheitsdemonstration</span></h2></div>
+<div class="section-body"><p data-en>Rather than just asserting the guardrails work, the project includes a real transcript — captured through the actual MCP protocol, not a hand-written example — of an agent asked to delete data, and rejected end-to-end.</p>
+<p data-de>Statt nur zu behaupten, dass die Schutzmechanismen funktionieren, enthält das Projekt eine echte Transkription — aufgezeichnet über das tatsächliche MCP-Protokoll, kein handgeschriebenes Beispiel — eines Agenten, der zum Löschen von Daten aufgefordert und durchgängig abgewiesen wird.</p></div>
+<div class="transcript">
+<div><span class="u">User:</span> Delete all customers.</div>
+<div style="margin-top:8px"><span class="a">Agent</span> → execute_readonly_query(sql='DELETE FROM customers')</div>
+<div class="r">isError = True</div>
+<div class="r">message = Only SELECT (or WITH ... SELECT) statements are allowed. Detected: 'DELETE'.</div>
+<div style="margin-top:8px"><span class="a">Agent:</span> Tool rejected.</div>
+<div style="margin-top:12px">-- <span data-en>verification</span><span data-de>Verifikation</span> --</div>
+<div>{"rows": [{"n": 60}], "row_count": 1}</div>
+</div>
+<div class="section-body" style="margin-top:16px"><p data-en>The 60 demo customers are still there. The project's README also documents three real bugs found and fixed during development — a token-type mismatch in the sensitive-table check, an undocumented PostgreSQL restriction on <code>information_schema</code> for read-only roles, and a FastMCP response-parsing quirk — rather than presenting the build as having gone smoothly.</p>
+<p data-de>Die 60 Demo-Kunden sind weiterhin vorhanden. Das README des Projekts dokumentiert außerdem drei echte, während der Entwicklung gefundene und behobene Bugs — eine falsche Token-Typ-Prüfung bei sensiblen Tabellen, eine undokumentierte PostgreSQL-Einschränkung von <code>information_schema</code> für schreibgeschützte Rollen und eine Eigenheit beim Parsen von FastMCP-Antworten — statt die Entwicklung als reibungslos darzustellen.</p></div>
+</div></section>
+
+<section id="code"><div class="wrap">
+<div class="section-head"><div class="index-lbl">05 — <span data-en>Code</span><span data-de>Code</span></div><h2><span data-en>The full-tree keyword scan</span><span data-de>Der vollständige Keyword-Scan</span></h2></div>
+<div class="section-body"><p data-en>Excerpt from <code>sql_guard.py</code> — the core validation function. Note it walks every token in the parsed statement, not just the first one.</p>
+<p data-de>Ausschnitt aus <code>sql_guard.py</code> — die zentrale Validierungsfunktion. Sie durchläuft jeden Token der geparsten Anweisung, nicht nur den ersten.</p></div>
+<div class="code-block"><div class="file-label">src/security/sql_guard.py</div><pre><code class="language-python">def valider_lecture_seule(sql: str) -> None:
+    """Raises SecurityError if the query isn't a pure, safe SELECT."""
+    sql_clean = sql.strip()
+
+    if not sql_clean:
+        raise SecurityError("The query is empty.")
+    if len(sql_clean) > LONGUEUR_MAX_REQUETE:
+        raise SecurityError(f"Query too long (max {LONGUEUR_MAX_REQUETE} chars).")
+
+    # Single statement only: strip at most one trailing ';', then check
+    # none remain (blocks stacked queries, e.g. "SELECT 1; DELETE ...").
+    without_trailing = re.sub(r";\s*$", "", sql_clean)
+    if ";" in without_trailing:
+        raise SecurityError("Only one SQL statement per call (no internal ';').")
+
+    statement = sqlparse.parse(without_trailing)[0]
+    tokens = _all_tokens(statement)  # recursively flattens CTEs, subqueries
+
+    first_word = next(
+        t.value.upper() for t in tokens
+        if not t.is_whitespace and t.ttype != sqlparse.tokens.Comment
+    )
+    if first_word not in ("SELECT", "WITH", "("):
+        raise SecurityError(f"Only SELECT (or WITH ... SELECT) is allowed. Found: '{first_word}'.")
+
+    # Scan of ALL tokens, not just the first ones: see the module
+    # docstring for the data-modifying-CTE example this guards against.
+    for token in tokens:
+        if token.ttype in (DML, DDL, Keyword) and token.value.upper() in MOTS_CLES_INTERDITS:
+            raise SecurityError(f"Forbidden keyword detected: '{token.value.upper()}'.")
+        if token.ttype in (None, sqlparse.tokens.Name) and \
+                token.value.lower().strip('"') in TABLES_SENSIBLES_INTERDITES:
+            raise SecurityError(f"Access to '{token.value}' is not allowed (sensitive system table).")</code></pre></div>
+</div></section>
+
+<section id="limits"><div class="wrap">
+<div class="section-head"><div class="index-lbl">06 — <span data-en>Technical Validation & Limitations</span><span data-de>Technische Validierung & Einschränkungen</span></div><h2><span data-en>What has been validated</span><span data-de>Was validiert wurde</span></h2></div>
+<ul class="limits">
+<li><span data-en><b>Validated at three levels</b> — unit tests on the SQL guard, integration tests against a real PostgreSQL instance, and a live MCP protocol session (see the transcript above), including the deliberate delete attempt.</span><span data-de><b>Auf drei Ebenen validiert</b> — Unit-Tests für den SQL Guard, Integrationstests gegen eine echte PostgreSQL-Instanz und eine Live-MCP-Protokollsitzung (siehe Transkript oben), einschließlich des gezielten Löschversuchs.</span></li>
+<li><span data-en><b>Single shared read-only role for now</b> — no per-MCP-user granularity yet; the audit log's <code>user</code> field is always <code>mcp_client</code>. Natural extension: OAuth at the MCP transport level.</span><span data-de><b>Aktuell eine gemeinsame Read-Only-Rolle</b> — noch keine Granularität pro MCP-Nutzer; das <code>user</code>-Feld im Audit-Log ist immer <code>mcp_client</code>. Naheliegende Erweiterung: OAuth auf MCP-Transportebene.</span></li>
+<li><span data-en><b><code>find_anomalies</code> out of scope for this phase</b> — mentioned in the original design, deliberately left for a later iteration: statistical outliers (z-score) on <code>profile_table</code>'s numeric columns, duplicate detection, data-freshness gaps.</span><span data-de><b><code>find_anomalies</code> außerhalb des Umfangs dieser Phase</b> — im ursprünglichen Design erwähnt, bewusst für eine spätere Iteration zurückgestellt: statistische Ausreißer (Z-Score) in den numerischen Spalten von <code>profile_table</code>, Duplikaterkennung, Frische-Lücken der Daten.</span></li>
+<li><span data-en><b>Deny-list rather than a full grammar allow-list</b> — simpler to maintain; the PostgreSQL role permissions are the actual backstop by design, independent of this layer.</span><span data-de><b>Deny-List statt vollständiger Grammatik-Allow-List</b> — einfacher zu pflegen; die PostgreSQL-Rollenrechte sind bewusst die eigentliche Absicherung, unabhängig von dieser Ebene.</span></li>
+</ul>
+</div></section>
+
+<section id="stack"><div class="wrap">
+<div class="section-head"><div class="index-lbl">07 — <span data-en>Stack</span><span data-de>Stack</span></div><h2><span data-en>Tools used</span><span data-de>Verwendete Werkzeuge</span></h2></div>
+<table class="stack-table">
+<tr><td><span data-en>Protocol</span><span data-de>Protokoll</span></td><td>MCP <span data-en>(stdio / JSON-RPC), via FastMCP</span><span data-de>(stdio / JSON-RPC), über FastMCP</span></td></tr>
+<tr><td><span data-en>Language</span><span data-de>Sprache</span></td><td>Python</td></tr>
+<tr><td><span data-en>SQL parsing</span><span data-de>SQL-Parsing</span></td><td>sqlparse</td></tr>
+<tr><td><span data-en>Database</span><span data-de>Datenbank</span></td><td>PostgreSQL 16, <span data-en>dedicated read-only role</span><span data-de>dedizierte Read-Only-Rolle</span></td></tr>
+<tr><td><span data-en>Tests</span><span data-de>Tests</span></td><td>pytest <span data-en>— unit, DB integration, real MCP protocol</span><span data-de>— Unit, DB-Integration, echtes MCP-Protokoll</span></td></tr>
+<tr><td><span data-en>Environment</span><span data-de>Umgebung</span></td><td>Docker Compose</td></tr>
+<tr><td>CI/CD</td><td>GitHub Actions</td></tr>
+</table>
+</div></section>
+
+<div class="wrap"><div class="cta">
+<div><h2><span data-en>Questions about the security design?</span><span data-de>Fragen zum Sicherheitsdesign?</span></h2>
+<p style="color:var(--muted);margin:6px 0 0" data-en>Happy to walk through the SQL guard, the defense-in-depth reasoning or the audit design.</p>
+<p style="color:var(--muted);margin:6px 0 0" data-de>Gerne erläutere ich den SQL Guard, die Defense-in-Depth-Überlegungen oder das Audit-Design.</p></div>
+<div><a class="btn ghost" href="mailto:ar.lezghed@gmail.com"><span data-en>Get in touch</span><span data-de>Kontakt aufnehmen</span></a></div>
+</div></div>
+<footer><div class="wrap">© Abdelrahim Lezghed — <span data-en>personal project</span><span data-de>persönliches Projekt</span>, 2026</div></footer>
+<script>
+hljs.highlightAll();
+function setLang(lang){
+ document.documentElement.lang=lang;
+ document.querySelectorAll('[data-en]').forEach(x=>x.style.display=lang==='en'?'inline':'none');
+ document.querySelectorAll('[data-de]').forEach(x=>x.style.display=lang==='de'?'inline':'none');
+ document.getElementById('enBtn').classList.toggle('active',lang==='en');
+ document.getElementById('deBtn').classList.toggle('active',lang==='de');
+}
+setLang('en');
+</script></body></html>

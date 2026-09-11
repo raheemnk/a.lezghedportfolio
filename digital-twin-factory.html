@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Industrial Digital Twin — Abdelrahim Lezghed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+<style>
+:root{--bg:#070b10;--card:#0e171f;--text:#edf5f7;--muted:#9aaab6;--line:#1d2b36;--green:#35e0a1;--blue:#55a7ff;--max:920px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 80% 0%,#123326 0,transparent 30%),var(--bg);color:var(--text);font-family:Inter,sans-serif;line-height:1.6}
+a{text-decoration:none;color:inherit}.wrap{max-width:var(--max);margin:auto;padding:0 28px}.mono{font-family:"JetBrains Mono",monospace}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(7,11,16,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:64px}
+.brand{font:600 13px "JetBrains Mono",monospace;color:var(--muted)}.brand strong{color:var(--text)}
+.back{font-size:13px;color:var(--muted);border:1px solid var(--line);padding:7px 13px;border-radius:8px}.back:hover{border-color:var(--green);color:var(--green)}
+.lang{display:flex;gap:5px}.lang button{cursor:pointer;border:1px solid var(--line);background:#0d151c;color:#aebbc4;border-radius:8px;padding:6px 10px;font-weight:800;font-size:13px}.lang button.active{background:var(--green);color:#06110d;border-color:var(--green)}
+.hero{padding:64px 0 48px;border-bottom:1px solid var(--line)}
+.hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:start}
+@media(max-width:800px){.hero-grid{grid-template-columns:1fr}}
+.kicker{font:600 12px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+h1{font-size:clamp(28px,4vw,42px);line-height:1.15;margin:0 0 18px;letter-spacing:-.03em;font-weight:800}
+.lede{color:var(--muted);font-size:17px;max-width:56ch;margin:0 0 26px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}.tag{font:12px "JetBrains Mono",monospace;color:#b7c5cc;border:1px solid #263743;padding:5px 10px;border-radius:999px}
+.titleblock{border:1px solid var(--line);background:var(--card);border-radius:14px;font:12.5px "JetBrains Mono",monospace;overflow:hidden}
+.titleblock .row{display:flex;justify-content:space-between;padding:11px 15px;border-bottom:1px solid var(--line);gap:12px}
+.titleblock .row:last-child{border-bottom:none}.titleblock .k{color:#6c7684}.titleblock .v{color:var(--text);text-align:right;max-width:60%}
+section{padding:56px 0;border-bottom:1px solid var(--line)}section:last-of-type{border-bottom:none}
+.section-head{display:grid;grid-template-columns:140px 1fr;gap:24px;margin-bottom:28px}
+@media(max-width:700px){.section-head{grid-template-columns:1fr}}
+.index-lbl{font:12px "JetBrains Mono",monospace;color:var(--muted);padding-top:6px}
+h2{font-size:24px;margin:0;font-weight:700;letter-spacing:-.02em}
+.section-body{max-width:66ch}.section-body p{color:var(--muted)}
+.problem{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--green);border-radius:0 12px 12px 0;padding:22px 24px;margin-top:6px}
+.problem p{margin:0;color:var(--muted)}
+.stat-inline{color:var(--green);font-family:"JetBrains Mono",monospace}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin-top:6px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.features.single{grid-template-columns:1fr}
+@media(max-width:700px){.features{grid-template-columns:1fr}}
+.feature{background:var(--card);padding:20px 22px}.feature h3{font-size:15px;margin:0 0 8px;font-weight:700}
+.feature p{font-size:14px;color:var(--muted);margin:0}.feature .role{font:11px "JetBrains Mono",monospace;color:var(--green);display:block;margin-bottom:8px;letter-spacing:.04em}
+.stack-table{width:100%;border-collapse:collapse;margin-top:6px;font-size:14px}
+.stack-table td{padding:12px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+.stack-table td:first-child{font-family:"JetBrains Mono",monospace;color:var(--green);width:170px;white-space:nowrap}
+.stack-table td:last-child{color:var(--muted)}
+.arch{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;margin-top:24px}
+.arch-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font:12.5px "JetBrains Mono",monospace;color:var(--muted)}
+.arch-box{border:1px solid var(--line);background:#0d151c;border-radius:8px;padding:9px 13px;color:var(--text)}
+.arch-arrow{color:var(--green)}
+.diagrams{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.diagram-chip{border:1px solid var(--line);padding:10px 14px;font-size:13px;color:var(--muted);border-radius:8px;background:var(--card);max-width:230px}
+.diagram-chip b{color:var(--text);font-weight:600;display:block;margin-bottom:2px}
+.code-block{background:#050809;border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-top:18px;overflow-x:auto}
+.code-block .file-label{font:11px "JetBrains Mono",monospace;color:var(--muted);margin-bottom:10px}
+.code-block pre{margin:0}.code-block code.hljs{background:transparent!important;padding:0!important;font:12.5px/1.7 "JetBrains Mono",monospace!important}
+.limits{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.limits li{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:0 10px 10px 0;padding:14px 18px;color:var(--muted);font-size:14.5px}
+.limits li b{color:var(--text)}
+.bugs{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.bugs li{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;color:var(--muted);font-size:14.5px}
+.bugs li b{color:var(--text)}
+.diagsample{background:#050809;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-top:16px;font:12.5px/1.75 "JetBrains Mono",monospace;color:#c7d0e8;overflow-x:auto}
+.diagsample .g{color:var(--green)}
+.cta{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:44px 0 60px;flex-wrap:wrap}
+.cta h2{font-size:20px}.btn.ghost{font:600 13px "JetBrains Mono",monospace;background:transparent;color:var(--muted);border:1px solid var(--line);padding:12px 20px;border-radius:9px;display:inline-block}
+footer{padding:24px 0 50px;font-size:12px;color:#71808b;font-family:"JetBrains Mono",monospace}
+[data-de]{display:none}
+</style></head><body>
+<div class="topbar"><div class="wrap">
+<div class="brand">PORTFOLIO / <strong><span data-en>Projects</span><span data-de>Projekte</span></strong></div>
+<div style="display:flex;gap:12px;align-items:center">
+<a class="back" href="index.html">← <span data-en>Back</span><span data-de>Zurück</span></a>
+<div class="lang"><button id="enBtn" onclick="setLang('en')">EN</button><button id="deBtn" onclick="setLang('de')">DE</button></div>
+</div></div></div>
+
+<div class="hero"><div class="wrap hero-grid">
+<div>
+<div class="kicker"><span data-en>PERSONAL PROJECT — INDUSTRIAL IoT / AI DATA ENGINEERING</span><span data-de>PERSÖNLICHES PROJEKT — INDUSTRIAL IoT / AI DATA ENGINEERING</span></div>
+<h1><span data-en>Industrial Digital Twin — sensors to AI diagnosis</span><span data-de>Industrieller digitaler Zwilling — von Sensoren zur KI-Diagnose</span></h1>
+<p class="lede" data-en>An end-to-end smart-factory simulation: sensor streaming through Kafka, time-series storage, three-tier anomaly detection, Random Forest predictive maintenance, a real-time dashboard — and an LLM layer that explains what the data already shows, never decides on its own.</p>
+<p class="lede" data-de>Eine durchgängige Smart-Factory-Simulation: Sensor-Streaming über Kafka, Zeitreihenspeicherung, dreistufige Anomalieerkennung, Predictive Maintenance mit Random Forest, ein Echtzeit-Dashboard — und eine LLM-Schicht, die erklärt, was die Daten bereits zeigen, aber nie selbst entscheidet.</p>
+<div class="tags"><span class="tag">Python</span><span class="tag">Kafka</span><span class="tag">TimescaleDB</span><span class="tag">scikit-learn</span><span class="tag">Streamlit</span><span class="tag">Claude API</span><span class="tag">Docker</span><span class="tag">pytest</span></div>
+</div>
+<div class="titleblock">
+<div class="row"><span class="k"><span data-en>Type</span><span data-de>Typ</span></span><span class="v"><span data-en>Personal project</span><span data-de>Persönliches Projekt</span></span></div>
+<div class="row"><span class="k"><span data-en>Year</span><span data-de>Jahr</span></span><span class="v">2026</span></div>
+<div class="row"><span class="k"><span data-en>Scale</span><span data-de>Umfang</span></span><span class="v"><span data-en>~1,870 lines Python, 29 tests</span><span data-de>~1.870 Zeilen Python, 29 Tests</span></span></div>
+<div class="row"><span class="k"><span data-en>Model accuracy</span><span data-de>Modellgenauigkeit</span></span><span class="v">94.9% <span data-en>out-of-sample</span><span data-de>Out-of-Sample</span></span></div>
+<div class="row"><span class="k"><span data-en>Status</span><span data-de>Status</span></span><span class="v"><span data-en>Functional end-to-end, tested — see honest limits below</span><span data-de>Durchgängig funktionsfähig, getestet — siehe ehrliche Grenzen unten</span></span></div>
+</div>
+</div></div>
+
+<section id="problem"><div class="wrap">
+<div class="section-head"><div class="index-lbl">01 — <span data-en>Problem</span><span data-de>Problem</span></div><h2><span data-en>Predictive maintenance fails on the boring parts</span><span data-de>Predictive Maintenance scheitert an den unspektakulären Details</span></h2></div>
+<div class="section-body">
+<p data-en>A flashy ML model is the easy part. The parts that actually decide whether a predictive-maintenance system is trustworthy are less glamorous: does an anomaly detector's own adaptive baseline eventually swallow a real, sustained failure? Does the alert status flicker every time a reading sits near the edge? And when an LLM is added to explain a diagnosis, does it stay honest about the numbers, or start inventing plausible-sounding ones?</p>
+<p data-de>Ein beeindruckendes ML-Modell ist der leichte Teil. Was wirklich darüber entscheidet, ob ein Predictive-Maintenance-System vertrauenswürdig ist, ist weniger glanzvoll: Schluckt die eigene adaptive Baseline eines Anomalie-Detektors irgendwann einen echten, anhaltenden Fehler? Flackert der Alarmstatus bei jeder grenzwertigen Messung? Und bleibt ein LLM, das eine Diagnose erklären soll, bei den echten Zahlen, oder erfindet es plausibel klingende?</p>
+<div class="problem">
+<p data-en><b>Goal:</b> simulate a realistic industrial pipeline end to end and deliberately stress-test these failure modes — then document what actually broke and how it was fixed, rather than only showing the version that works.</p>
+<p data-de><b>Ziel:</b> eine realistische industrielle Pipeline durchgängig simulieren und diese Fehlermodi gezielt auf die Probe stellen — und dokumentieren, was dabei tatsächlich kaputtging und wie es behoben wurde, statt nur die funktionierende Version zu zeigen.</p>
+</div></div></div></section>
+
+<section id="architecture"><div class="wrap">
+<div class="section-head"><div class="index-lbl">02 — <span data-en>Architecture</span><span data-de>Architektur</span></div><h2><span data-en>7 phases, sensors to explanation</span><span data-de>7 Phasen, von Sensoren zur Erklärung</span></h2></div>
+<div class="section-body"><p data-en>Each machine streams 5 correlated sensors (temperature, pressure, vibration, rpm, energy) through Kafka into a stream processor that runs detection and prediction together, backed by a time-series store, surfaced on a live dashboard, with an AI layer added last — strictly for explanation.</p>
+<p data-de>Jede Maschine streamt 5 korrelierte Sensorwerte (Temperatur, Druck, Vibration, Drehzahl, Energie) über Kafka in einen Stream-Prozessor, der Erkennung und Vorhersage gemeinsam ausführt, gestützt auf einen Zeitreihenspeicher, sichtbar auf einem Live-Dashboard, mit einer zuletzt hinzugefügten KI-Schicht — ausschließlich zur Erklärung.</p></div>
+<div class="diagrams">
+<div class="diagram-chip"><b><span data-en>Streaming</span><span data-de>Streaming</span></b>Kafka, 3 topics, <span data-en>acks="all"</span><span data-de>acks="all"</span></div>
+<div class="diagram-chip"><b><span data-en>Storage</span><span data-de>Speicherung</span></b>TimescaleDB <span data-en>hypertables</span><span data-de>Hypertables</span></div>
+<div class="diagram-chip"><b><span data-en>Detection (3 tiers)</span><span data-de>Erkennung (3 Stufen)</span></b>threshold, statistical z-score, isolation forest</div>
+<div class="diagram-chip"><b><span data-en>Prediction + AI</span><span data-de>Vorhersage + KI</span></b>Random Forest (94.9%) + Claude <span data-en>(explain-only)</span><span data-de>(nur Erklärung)</span></div>
+</div>
+<div class="arch">
+<div class="arch-row">
+<span class="arch-box"><span data-en>Machine sensors</span><span data-de>Maschinensensoren</span></span>
+<span class="arch-arrow">→</span>
+<span class="arch-box">Kafka</span>
+<span class="arch-arrow">→</span>
+<span class="arch-box">Stream Processor <span data-en>(detection + prediction)</span><span data-de>(Erkennung + Vorhersage)</span></span>
+<span class="arch-arrow">→</span>
+<span class="arch-box">TimescaleDB</span>
+<span class="arch-arrow">→</span>
+<span class="arch-box"><span data-en>Dashboard</span><span data-de>Dashboard</span> (Streamlit)</span>
+<span class="arch-arrow">→</span>
+<span class="arch-box">AI Diagnosis (Claude)</span>
+</div>
+</div>
+</div></section>
+
+<section id="decisions"><div class="wrap">
+<div class="section-head"><div class="index-lbl">03 — <span data-en>Key decisions</span><span data-de>Zentrale Entscheidungen</span></div><h2><span data-en>Technical choices, and why</span><span data-de>Technische Entscheidungen — und warum</span></h2></div>
+<div class="features single">
+<div class="feature"><span class="role"><span data-en>01 — DUAL MESSAGE BUS</span><span data-de>01 — DUALER MESSAGE BUS</span></span><h3><span data-en>Same interface, real and in-memory</span><span data-de>Gleiches Interface, real und im Speicher</span></h3><p data-en>A single <code>MessageBus</code> interface has two implementations: a real <code>KafkaBus</code> (kafka-python, native protocol) ready against the provided <code>docker-compose.yml</code>, and an <code>InMemoryBus</code> with no broker dependency, used to validate every business rule end-to-end without a running Kafka broker.</p><p data-de>Ein einziges <code>MessageBus</code>-Interface hat zwei Implementierungen: ein echter <code>KafkaBus</code> (kafka-python, natives Protokoll), einsatzbereit gegen das mitgelieferte <code>docker-compose.yml</code>, und ein <code>InMemoryBus</code> ohne Broker-Abhängigkeit, mit dem jede Geschäftsregel durchgängig validiert wurde, ohne dass ein Kafka-Broker lief.</p></div>
+<div class="feature"><span class="role"><span data-en>02 — THREE-TIER DETECTION</span><span data-de>02 — DREISTUFIGE ERKENNUNG</span></span><h3><span data-en>Each tier catches what the others miss</span><span data-de>Jede Stufe erkennt, was die anderen übersehen</span></h3><p data-en>A hard <code>threshold</code> that never adapts (a real safety net), a <code>statistical</code> z-score with a per-machine rolling baseline, and a multivariate <code>isolation forest</code> that catches combinations of individually-plausible values that no single z-score can see.</p><p data-de>Ein harter <code>threshold</code>, der sich nie anpasst (ein echtes Sicherheitsnetz), ein <code>statistical</code> Z-Score mit gleitender Baseline pro Maschine, und ein multivariater <code>isolation forest</code>, der Kombinationen einzeln plausibler Werte erkennt, die kein einzelner Z-Score sehen kann.</p></div>
+<div class="feature"><span class="role"><span data-en>03 — HYSTERESIS ON STATUS</span><span data-de>03 — HYSTERESE BEIM STATUS</span></span><h3><span data-en>No alert flapping</span><span data-de>Kein Alert-Flapping</span></h3><p data-en>An anomaly raises the displayed status immediately, but it only drops back down after several consecutive clean readings — otherwise a borderline sensor value would flip the status back and forth on every single reading.</p><p data-de>Eine Anomalie hebt den angezeigten Status sofort an, senkt ihn aber erst nach mehreren aufeinanderfolgenden sauberen Messungen wieder — sonst würde ein grenzwertiger Sensorwert den Status bei jeder einzelnen Messung hin und her kippen lassen.</p></div>
+<div class="feature"><span class="role"><span data-en>04 — LOCAL DEVIATION, NOT GLOBAL IMPORTANCE</span><span data-de>04 — LOKALE ABWEICHUNG, NICHT GLOBALE WICHTIGKEIT</span></span><h3><span data-en>Actionable per-case indicators</span><span data-de>Handlungsrelevante fallbezogene Indikatoren</span></h3><p data-en>The "main indicators" shown for a prediction (e.g. "vibration +132%") are each sensor's %-deviation from THAT specific machine's own baseline — not the Random Forest's overall feature importance, which says nothing about the case at hand.</p><p data-de>Die für eine Vorhersage angezeigten "Hauptindikatoren" (z. B. "Vibration +132 %") sind die %-Abweichung jedes Sensors von der eigenen Baseline DIESER spezifischen Maschine — nicht die globale Feature-Wichtigkeit des Random Forest, die über den konkreten Fall nichts aussagt.</p></div>
+<div class="feature"><span class="role"><span data-en>05 — STRICT DECIDE / EXPLAIN SEPARATION</span><span data-de>05 — STRIKTE TRENNUNG VON ENTSCHEIDEN UND ERKLÄREN</span></span><h3><span data-en>The LLM never sees raw sensors</span><span data-de>Das LLM sieht nie Rohsensordaten</span></h3><p data-en>Claude receives only already-structured context (status, Random Forest prediction, recent anomalies, maintenance history) with an explicit instruction not to invent numbers — with a deterministic fallback template used whenever no API key is configured, so the system never fails on missing credentials.</p><p data-de>Claude erhält ausschließlich bereits strukturierten Kontext (Status, Random-Forest-Vorhersage, jüngste Anomalien, Wartungshistorie) mit der expliziten Anweisung, keine Zahlen zu erfinden — mit einer deterministischen Fallback-Vorlage, wenn kein API-Schlüssel konfiguriert ist, sodass das System bei fehlenden Zugangsdaten nie fehlschlägt.</p></div>
+</div></div></section>
+
+<section id="honest-eng"><div class="wrap">
+<div class="section-head"><div class="index-lbl">04 — <span data-en>What testing surfaced</span><span data-de>Was das Testen offenlegte</span></div><h2><span data-en>A real detector blind spot, found and fixed</span><span data-de>Eine echte Erkennungslücke, gefunden und behoben</span></h2></div>
+<div class="section-body">
+<p data-en>Testing with repeated realistic data over long periods surfaced a classic trap: a rolling z-score <b>adapts</b> to a sustained drift and eventually stops flagging it once the degraded state becomes "the new normal" of its own window. Two concrete fixes followed: the simulator's degradation profile was calibrated so a stable <code>CRITICAL</code> state also reliably crosses the hard threshold detector (which never adapts), and the stream processor combines reactive detection with the Random Forest prediction — with hysteresis — to decide the displayed status, rather than trusting the adaptive detector alone.</p>
+<p data-de>Tests mit wiederholten realistischen Daten über lange Zeiträume deckten eine klassische Falle auf: Ein gleitender Z-Score <b>passt sich an</b> eine anhaltende Drift an und hört irgendwann auf, sie zu melden, sobald der degradierte Zustand zur "neuen Normalität" seines eigenen Fensters wird. Zwei konkrete Korrekturen folgten: Das Degradationsprofil des Simulators wurde so kalibriert, dass ein stabiler <code>CRITICAL</code>-Zustand auch zuverlässig den harten Schwellenwert-Detektor überschreitet (der sich nie anpasst), und der Stream-Prozessor kombiniert reaktive Erkennung mit der Random-Forest-Vorhersage — inklusive Hysterese —, um den angezeigten Status zu bestimmen, statt sich allein auf den adaptiven Detektor zu verlassen.</p>
+</div>
+<ul class="bugs">
+<li><span data-en><b>Race condition in <code>InMemoryBus.drain()</code></b> — it checked <code>queue.empty()</code>, not whether processing had actually finished; a message can be "gotten" while its handler is still running. Fixed with <code>task_done()</code>/<code>unfinished_tasks</code>, the mechanism <code>queue.Queue</code> provides for exactly this.</span><span data-de><b>Race Condition in <code>InMemoryBus.drain()</code></b> — geprüft wurde <code>queue.empty()</code>, nicht ob die Verarbeitung tatsächlich abgeschlossen war; eine Nachricht kann "geholt" werden, während ihr Handler noch läuft. Behoben mit <code>task_done()</code>/<code>unfinished_tasks</code>, dem dafür vorgesehenen Mechanismus von <code>queue.Queue</code>.</span></li>
+<li><span data-en><b>New PostgreSQL connection on every call</b> in <code>FactoryRepository</code> — a real bottleneck for a high-frequency streaming pipeline. Replaced with a <code>psycopg2.pool.ThreadedConnectionPool</code>.</span><span data-de><b>Neue PostgreSQL-Verbindung bei jedem Aufruf</b> in <code>FactoryRepository</code> — ein echter Engpass für eine hochfrequente Streaming-Pipeline. Ersetzt durch einen <code>psycopg2.pool.ThreadedConnectionPool</code>.</span></li>
+</ul>
+</div></section>
+
+<section id="code"><div class="wrap">
+<div class="section-head"><div class="index-lbl">05 — <span data-en>Code</span><span data-de>Code</span></div><h2><span data-en>Turning a probability into an explanation</span><span data-de>Eine Wahrscheinlichkeit in eine Erklärung übersetzen</span></h2></div>
+<div class="section-body"><p data-en>Excerpt from <code>predictive_model.py</code> — how a raw Random Forest probability becomes the actionable "main indicators" shown on the dashboard.</p>
+<p data-de>Ausschnitt aus <code>predictive_model.py</code> — wie aus einer rohen Random-Forest-Wahrscheinlichkeit die handlungsrelevanten "Hauptindikatoren" im Dashboard werden.</p></div>
+<div class="code-block"><div class="file-label">src/maintenance/predictive_model.py</div><pre><code class="language-python">def predire(self, lectures_recentes: list[dict], baseline: dict) -> Prediction:
+    if not self._entraine:
+        raise RuntimeError("Model must be trained (entrainer()) before predicting.")
+    if len(lectures_recentes) < TAILLE_FENETRE:
+        raise ValueError(f"Need at least {TAILLE_FENETRE} recent readings to predict.")
+
+    fenetre = lectures_recentes[-TAILLE_FENETRE:]
+    features = _features_fenetre(fenetre, baseline)
+    proba = self._predire_proba(features)
+
+    # "Main indicators" = each sensor's LOCAL %-deviation from THIS
+    # machine's own baseline — not the forest's global feature
+    # importance, which says nothing about this specific case.
+    deviations = sorted(
+        ((c, features[f"{c}_deviation_pct"]) for c in CAPTEURS),
+        key=lambda t: abs(t[1]), reverse=True,
+    )
+    top_features = [
+        {"feature": capteur, "contribution_pct": round(dev, 1)}
+        for capteur, dev in deviations[:3]
+    ]
+
+    return Prediction(
+        failure_probability=round(proba, 4),
+        risk_level=self._niveau_risque(proba),
+        top_features=top_features,
+    )</code></pre></div>
+</div></section>
+
+<section id="limits"><div class="wrap">
+<div class="section-head"><div class="index-lbl">06 — <span data-en>Technical Validation & Limitations</span><span data-de>Technische Validierung & Einschränkungen</span></div><h2><span data-en>What has been validated</span><span data-de>Was validiert wurde</span></h2></div>
+<ul class="limits">
+<li><span data-en><b>Kafka integration:</b> <code>KafkaBus</code> is implemented and configured for the provided Docker environment. End-to-end validation during development ran against the equivalent <code>InMemoryBus</code>, as no local Kafka broker was running; the Kafka implementation itself was not exercised live.</span><span data-de><b>Kafka-Integration:</b> <code>KafkaBus</code> ist implementiert und für die mitgelieferte Docker-Umgebung konfiguriert. Die Ende-zu-Ende-Validierung während der Entwicklung lief gegen den äquivalenten <code>InMemoryBus</code>, da kein lokaler Kafka-Broker lief; die Kafka-Implementierung selbst wurde nicht live ausgeführt.</span></li>
+<li><span data-en><b>LLM diagnosis:</b> the AI layer includes a deterministic fallback mode, tested to never invent a numerical value. No API key was configured for this development pass, so the live Claude call itself was not validated.</span><span data-de><b>LLM-Diagnose:</b> Die KI-Schicht enthält einen deterministischen Fallback-Modus, der nachweislich nie einen Zahlenwert erfindet. Für diesen Entwicklungsdurchlauf war kein API-Schlüssel konfiguriert, daher wurde der eigentliche Live-Aufruf an Claude nicht validiert.</span></li>
+<li><span data-en><b>Anomaly detection:</b> with a z-score threshold of 2.5 and no multi-test correction, a small number of false-positive <code>WARNING</code> results appeared on healthy machines across 6 machines × 5 sensors × 150 readings. These results were kept and reported rather than tuned away. A production deployment would apply a stricter threshold or a correction (Bonferroni or similar) as the number of monitored sensors grows.</span><span data-de><b>Anomalieerkennung:</b> Bei einem Z-Score-Schwellenwert von 2,5 ohne Mehrfachtest-Korrektur traten über 6 Maschinen × 5 Sensoren × 150 Messungen vereinzelt <code>WARNING</code>-Falschmeldungen bei gesunden Maschinen auf. Diese Ergebnisse wurden beibehalten und berichtet statt wegkalibriert. Ein Produktiveinsatz würde einen strengeren Schwellenwert oder eine Korrektur (Bonferroni o. ä.) anwenden, sobald die Zahl überwachter Sensoren wächst.</span></li>
+</ul>
+</div></section>
+
+<section id="stack"><div class="wrap">
+<div class="section-head"><div class="index-lbl">07 — <span data-en>Stack</span><span data-de>Stack</span></div><h2><span data-en>Tools used</span><span data-de>Verwendete Werkzeuge</span></h2></div>
+<table class="stack-table">
+<tr><td><span data-en>Language</span><span data-de>Sprache</span></td><td>Python</td></tr>
+<tr><td><span data-en>Streaming</span><span data-de>Streaming</span></td><td>Kafka <span data-en>(kafka-python)</span><span data-de>(kafka-python)</span>, <span data-en>in-memory fallback for validation</span><span data-de>In-Memory-Fallback zur Validierung</span></td></tr>
+<tr><td><span data-en>Storage</span><span data-de>Speicherung</span></td><td>PostgreSQL / TimescaleDB</td></tr>
+<tr><td><span data-en>Machine learning</span><span data-de>Machine Learning</span></td><td>scikit-learn <span data-en>(Random Forest, Isolation Forest)</span><span data-de>(Random Forest, Isolation Forest)</span></td></tr>
+<tr><td><span data-en>Dashboard</span><span data-de>Dashboard</span></td><td>Streamlit + Plotly</td></tr>
+<tr><td><span data-en>AI explanation</span><span data-de>KI-Erklärung</span></td><td>Claude API <span data-en>(with deterministic fallback)</span><span data-de>(mit deterministischem Fallback)</span></td></tr>
+<tr><td><span data-en>Tests</span><span data-de>Tests</span></td><td>pytest — 29 <span data-en>tests</span><span data-de>Tests</span></td></tr>
+<tr><td><span data-en>Environment</span><span data-de>Umgebung</span></td><td>Docker Compose</td></tr>
+<tr><td>CI/CD</td><td>GitHub Actions</td></tr>
+</table>
+</div></section>
+
+<div class="wrap"><div class="cta">
+<div><h2><span data-en>Questions about the design?</span><span data-de>Fragen zum Design?</span></h2>
+<p style="color:var(--muted);margin:6px 0 0" data-en>Happy to walk through the detection tiers, the hysteresis logic or the decide/explain separation for the AI layer.</p>
+<p style="color:var(--muted);margin:6px 0 0" data-de>Gerne erläutere ich die Erkennungsstufen, die Hysterese-Logik oder die Trennung von Entscheiden und Erklären in der KI-Schicht.</p></div>
+<div><a class="btn ghost" href="mailto:ar.lezghed@gmail.com"><span data-en>Get in touch</span><span data-de>Kontakt aufnehmen</span></a></div>
+</div></div>
+<footer><div class="wrap">© Abdelrahim Lezghed — <span data-en>personal project</span><span data-de>persönliches Projekt</span>, 2026</div></footer>
+<script>
+hljs.highlightAll();
+function setLang(lang){
+ document.documentElement.lang=lang;
+ document.querySelectorAll('[data-en]').forEach(x=>x.style.display=lang==='en'?'inline':'none');
+ document.querySelectorAll('[data-de]').forEach(x=>x.style.display=lang==='de'?'inline':'none');
+ document.getElementById('enBtn').classList.toggle('active',lang==='en');
+ document.getElementById('deBtn').classList.toggle('active',lang==='de');
+}
+setLang('en');
+</script></body></html>
